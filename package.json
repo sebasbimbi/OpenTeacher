@@ -18,7 +18,8 @@
     "test:criterio": "node scripts/criterio.test.mjs",
     "test:ficha": "node scripts/ficha.test.mjs",
     "test:cuaderno": "node scripts/cuaderno.test.mjs",
-    "test:escena": "node scripts/escena.test.mjs"
+    "test:escena": "node scripts/escena.test.mjs",
+    "demo": "NEXT_DIST_DIR=.next-prod next build && NEXT_DIST_DIR=.next-prod next start -p 3100"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.122.0",

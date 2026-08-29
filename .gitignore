@@ -50,3 +50,4 @@ next-env.d.ts
 # build de verificacion, aparte del dev server
 .next-build/
 .next-alt/
+.next-prod/

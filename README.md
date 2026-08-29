@@ -60,6 +60,16 @@ La grabacion necesita https o localhost (requisito del navegador, no del proyect
 | `lib/agents.ts` | Orquestacion de los agentes. PENDIENTE. |
 | `lib/mockData.ts` | Datos pre-generados. De aqui vive la demo si la red falla. |
 
+## Correr la demo desde la laptop, sin depender de Vercel
+
+```bash
+npm run demo   # build de produccion + servidor en http://localhost:3100
+```
+
+Usa `.env.local`, asi que con `ANTHROPIC_API_KEY` real ahi **responde el agente de verdad**, no el texto de reserva. Verificado: el caso de la docente agredida pasa completo contra este servidor, con la tarjeta normativa y el cuaderno.
+
+Corre en un directorio de build aparte (`.next-prod`), asi que no le pisa el `.next` al servidor de desarrollo y los dos pueden convivir.
+
 ## Instalar en el telefono
 
 OpenEd es una PWA: se instala desde el navegador, sin app nativa y sin tienda. Abre https://opened-phi.vercel.app y:
