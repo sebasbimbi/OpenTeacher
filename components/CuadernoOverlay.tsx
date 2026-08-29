@@ -319,7 +319,7 @@ function Hoja({ resumen }: { resumen: ResumenAlumno }) {
                   <p className="mb-1 text-[12.5px] text-[var(--wa-meta)]">
                     {incidencia.fecha} · {citaCorta(norma)}
                   </p>
-                  <FichaNorma fila={norma} mostrarHitos />
+                  <FichaNorma fila={norma} variante="cuaderno" />
                 </li>
               ))}
             </ul>
