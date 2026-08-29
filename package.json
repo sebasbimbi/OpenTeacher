@@ -12,7 +12,8 @@
     "test:movil": "node scripts/movil.test.mjs",
     "build:check": "NEXT_DIST_DIR=.next-build next build",
     "test:aula": "node scripts/aula.test.mjs",
-    "test:grabacion": "node scripts/aula-grabacion.test.mjs"
+    "test:grabacion": "node scripts/aula-grabacion.test.mjs",
+    "test:ficha": "node scripts/ficha.test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.122.0",

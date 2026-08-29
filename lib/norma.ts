@@ -347,7 +347,7 @@ export const NORMA: FilaNorma[] = [
     plazo: null,
     hitos: [],
     noAplica:
-      "Aquí no hay ruta SíseVe ni plazo de cierre: el Portal registra violencia contra estudiantes, no contra el docente. Por eso este caso deja al maestro solo, y es donde OpenEd se queda con usted.",
+      "Aquí no hay ruta SíseVe ni plazo de cierre: el Portal SíseVe registra violencia contra estudiantes, no contra el docente.",
     fuente: {
       norma: "RM 383-2025-MINEDU, Anexo 03, numeral 4.3",
       paginaPdf: 13,
