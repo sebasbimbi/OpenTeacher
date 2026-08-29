@@ -20,7 +20,8 @@
     "test:cuaderno": "node scripts/cuaderno.test.mjs",
     "test:escena": "node scripts/escena.test.mjs",
     "test:planb": "node scripts/planb.test.mjs",
-    "demo": "NEXT_DIST_DIR=.next-prod next build && NEXT_DIST_DIR=.next-prod next start -p 3100"
+    "demo": "NEXT_DIST_DIR=.next-prod next build && NEXT_DIST_DIR=.next-prod next start -p 3100",
+    "demo:mock": "OPENED_MOCK_MODE=true NEXT_DIST_DIR=.next-prod next start -p 3101"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.122.0",

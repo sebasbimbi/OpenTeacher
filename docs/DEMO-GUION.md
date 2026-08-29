@@ -1,3 +1,32 @@
+# Pre-vuelo de la laptop
+
+La demo corre **desde la laptop**, no desde Vercel.
+
+## Arranque, en este orden
+
+```bash
+npm run demo        # puerto 3100, agente REAL. Construye y levanta.
+npm run demo:mock   # puerto 3101, simulado. REUSA el build de arriba, no reconstruye.
+```
+
+**El servidor de desarrollo va APAGADO.** Nunca `npm run dev` en escena: pinta el overlay de Build Error encima de la página, y eso en un proyector es el peor final posible.
+
+Los dos servidores conviven: mismo build, puertos distintos. Verificado: 3100 responde con el agente real y 3101 responde simulado, al mismo tiempo.
+
+## Antes de subir
+
+- **Dos pestañas precalentadas**, una por puerto, con un mensaje real enviado en cada una. Así la primera respuesta del escenario no carga en frío.
+- Navegador a **pantalla completa**, sin barra de URL ni de marcadores.
+- **Notificaciones del sistema silenciadas** y suspensión de pantalla desactivada.
+
+## Si algo falla
+
+Cambiar a la pestaña de 3101 y seguir. **Sin anunciarlo.** La historia es la misma en las dos: el caso de la docente agredida, con la misma tarjeta normativa. El jurado no tiene por qué notar el cambio.
+
+Por qué los dos servidores y no una variable: el modo simulado se lee al arrancar el proceso, así que cambiarlo en caliente obliga a matar y relevantar el servidor. Treinta segundos de pantalla muerta en un pitch de tres minutos es el pitch.
+
+---
+
 # DEMO-GUION, runbook de escenario
 
 Sin numero real de WhatsApp, **este es el archivo mas importante del dia**. Si algo de aca no
