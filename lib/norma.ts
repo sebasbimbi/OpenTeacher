@@ -1,5 +1,5 @@
 /**
- * Tabla normativa de OpenEd. RM 383-2025-MINEDU, Anexo 03.
+ * Tabla normativa de OpenTeacher. RM 383-2025-MINEDU, Anexo 03.
  *
  * REGLA DE LA CASA, la mas importante de este archivo:
  * **el modelo tiene PROHIBIDO escribir digitos de normas.**

@@ -424,7 +424,7 @@ function Checks() {
 
 function Escribiendo() {
   return (
-    <li className="flex justify-start" aria-label="OpenEd está escribiendo">
+    <li className="flex justify-start" aria-label="OpenTeacher está escribiendo">
       <span className="flex gap-1.5 rounded-xl rounded-tl-none bg-[var(--wa-burbuja-otra)] px-4 py-3.5 shadow-sm">
         {[0, 150, 300].map((retraso) => (
           <span

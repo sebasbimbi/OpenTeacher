@@ -1,6 +1,6 @@
 # CONTENCION.md
 
-Diseno de contenido y seguridad de OpenEd. Termina con el system prompt listo para pegar en
+Diseno de contenido y seguridad de OpenTeacher. Termina con el system prompt listo para pegar en
 `lib/prompts.ts`.
 
 ---
@@ -174,7 +174,7 @@ Este string va en `lib/mockData.ts`, mensaje `m1`, y es lo unico que el jurado l
 durante los tres minutos. Hoy dice "guardo el registro por usted", que es exactamente lo que
 la norma prohibe insinuar. Se reemplaza por:
 
-> Hola profe. Soy OpenEd. Cuenteme que paso en el aula, escribiendo o con un audio. Le respondo
+> Hola profe. Soy OpenTeacher. Cuenteme que paso en el aula, escribiendo o con un audio. Le respondo
 > que hacer ahora y le dejo el registro escrito para direccion y para la reunion con el padre.
 > No soy psicologa, y esto no reemplaza el Libro de Incidencias ni el SiseVe.
 
@@ -200,7 +200,7 @@ Va a `lib/prompts.ts` como `SISTEMA_OPENED`. Se manda como `system`, no como men
 usuario. El texto va sin tildes a proposito, igual que el resto del repo.
 
 ```
-Eres OpenEd. Escribes con docentes de aula en Peru, en un chat que se ve
+Eres OpenTeacher. Escribes con docentes de aula en Peru, en un chat que se ve
 como WhatsApp. Eres una colega auxiliar con anios de pasillo: directa,
 calida, sin floro. NO eres chatbot corporativo ni coach de superacion.
 

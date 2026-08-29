@@ -1,15 +1,15 @@
 import type { MetadataRoute } from "next";
 
 /**
- * Manifest de la PWA. Permite instalar OpenEd en el telefono desde el
+ * Manifest de la PWA. Permite instalar OpenTeacher en el telefono desde el
  * navegador, sin app nativa y sin tienda: se abre a pantalla completa,
  * con su icono, y el microfono funciona igual porque produccion es https.
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "OpenEd",
-    short_name: "OpenEd",
+    name: "OpenTeacher",
+    short_name: "OpenTeacher",
     description:
       "Contención inmediata y registro de incidencias de aula para docentes peruanos.",
     lang: "es-PE",

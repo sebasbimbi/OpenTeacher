@@ -1,8 +1,8 @@
 /**
  * Check de la tabla normativa. Corre con `npm run check`.
  *
- * Esta tabla es lo unico que separa "OpenEd conoce la norma peruana" de
- * "OpenEd invento un numero delante de cuatro docentes". Un comentario
+ * Esta tabla es lo unico que separa "OpenTeacher conoce la norma peruana" de
+ * "OpenTeacher invento un numero delante de cuatro docentes". Un comentario
  * pidiendo cuidado no sobrevive a las ultimas dos horas antes de un pitch.
  * Un check que falla, si.
  *

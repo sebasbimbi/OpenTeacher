@@ -1,5 +1,5 @@
 /**
- * Datos pre-generados para la demo de OpenEd.
+ * Datos pre-generados para la demo de OpenTeacher.
  *
  * PLAN B: el simulador de chat en app/page.tsx corre SOLO con esto.
  * Ni una llamada de red. Si el WhatsApp real falla en el escenario,
@@ -35,9 +35,9 @@ export interface Mensaje {
 }
 
 export const CONTACTO = {
-  nombre: "OpenEd",
+  nombre: "OpenTeacher",
   estado: "en línea",
-  iniciales: "OE",
+  iniciales: "OT",
 };
 
 /**
@@ -53,7 +53,7 @@ export const CONVERSACION_DEMO: Mensaje[] = [
     id: "m1",
     de: "opened",
     texto:
-      "Hola profe. Soy OpenEd. Cuénteme qué pasó en el aula, escribiendo o con un audio. Le respondo qué hacer ahora y le dejo el registro escrito para dirección y para la reunión con el padre.\n\nNo soy psicóloga, y esto no reemplaza el Libro de Incidencias ni el SíseVe.",
+      "Hola profe. Soy OpenTeacher. Cuénteme qué pasó en el aula, escribiendo o con un audio. Le respondo qué hacer ahora y le dejo el registro escrito para dirección y para la reunión con el padre.\n\nNo soy psicóloga, y esto no reemplaza el Libro de Incidencias ni el SíseVe.",
     hora: "10:02",
   },
 ];

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "OpenEd",
+  title: "OpenTeacher",
   description:
     "Agente de WhatsApp para docentes peruanos. Contención inmediata y registro de incidencias de aula.",
   // iOS ignora los iconos del manifest para la pantalla de inicio y usa
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   // sale con una captura de la pagina en vez del icono.
   appleWebApp: {
     capable: true,
-    title: "OpenEd",
+    title: "OpenTeacher",
     statusBarStyle: "black-translucent",
   },
 };

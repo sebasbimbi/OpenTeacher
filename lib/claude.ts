@@ -1,5 +1,5 @@
 /**
- * Wrapper del Anthropic SDK para OpenEd.
+ * Wrapper del Anthropic SDK para OpenTeacher.
  *
  * Dos modos:
  *   - REAL: usa @anthropic-ai/sdk con ANTHROPIC_API_KEY.

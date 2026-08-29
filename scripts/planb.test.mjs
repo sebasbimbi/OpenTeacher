@@ -89,7 +89,7 @@ for (let intento = 0; intento < 20 && !vivo; intento++) {
 const msHidratacion = Date.now() - t0Hidratacion;
 assert.ok(vivo, `el chat nunca acepto teclado: ${msHidratacion} ms sin que apareciera el boton de enviar`);
 
-await paso("la docente escribe y OpenEd responde", async () => {
+await paso("la docente escribe y OpenTeacher responde", async () => {
   const antes = await p.locator("li").count();
   await p.locator('button[aria-label="Enviar mensaje"]').click();
   await p.waitForFunction(

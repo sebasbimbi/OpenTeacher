@@ -11,7 +11,7 @@ contra fuente primaria. Lo no verificado, al final.
 Incidencias al director y el SiseVe al responsable de convivencia (8.3.3 y 8.3.4,
 https://www.minedu.gob.pe/transparencia/2018/pdf/decreto-supremo-lineamientos-para-gestion-de-la-convivencia-escolar.pdf).
 
-**OpenEd nunca reporta al SiseVe ni asienta el Libro.** Produce el borrador para quien si tiene
+**OpenTeacher nunca reporta al SiseVe ni asienta el Libro.** Produce el borrador para quien si tiene
 esa competencia. Saber que no construir es la mitad de la credibilidad, y ademas: si una
 docente cree que ya cumplio porque le escribio al bot, el producto le hizo dano.
 
@@ -159,7 +159,7 @@ y escala a humano. Ver `CONTENCION.md` §4.
 
 ## 4. Privacidad, la postura defendible
 
-**Papeles.** La IE es titular del banco de datos; **OpenEd es encargado de tratamiento**
+**Papeles.** La IE es titular del banco de datos; **OpenTeacher es encargado de tratamiento**
 (Ley 29733 art. 2.7, https://www.smv.gob.pe/Uploads/Ley_29733_vigente_2025.pdf) y trata por
 instruccion de la IE. El docente no es responsable de datos.
 
@@ -192,7 +192,7 @@ agresor, mientras al informante adulto le pide nombre completo, DNI, direccion y
 | Docente | Sus incidencias, su aula, su capa emocional |
 | Padre o madre | **Solo el reporte de su hijo.** El DS 004 lo dice literal del Libro: accesible a los padres, pero "no pueden leer otros casos registrados" |
 | Convivencia y direccion | Borradores de nivel B, agregados |
-| OpenEd | Datos disociados |
+| OpenTeacher | Datos disociados |
 
 **Que no se guarda nunca.** El art. 23.1 del DS 016-2024-JUS prohibe recopilar datos de menores
 que revelen informacion de su grupo familiar sin consentimiento de esos titulares: el extractor

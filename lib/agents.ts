@@ -1,5 +1,5 @@
 /**
- * El agente de contencion de OpenEd.
+ * El agente de contencion de OpenTeacher.
  *
  * UNA sola llamada con tool_choice forzado. Devuelve la prosa para la docente
  * y el triage estructurado juntos.

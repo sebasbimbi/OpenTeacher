@@ -76,13 +76,13 @@ function Encabezado() {
   return (
     <header className="mb-8 border-b border-[#22323a] pb-6">
       <p className="mb-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#4db6a4]">
-        OpenEd
+        OpenTeacher
       </p>
       <h1 className="text-[28px] font-semibold leading-tight tracking-tight sm:text-[34px]">
         Grabación de aula
       </h1>
       <p className="mt-2 max-w-[38rem] text-[15px] leading-relaxed text-[#9fb0b9]">
-        Graba la clase completa y OpenEd extrae las incidencias solo. La docente
+        Graba la clase completa y OpenTeacher extrae las incidencias solo. La docente
         no tiene que reportar nada ni acordarse de nada al final del día.
       </p>
     </header>
@@ -177,7 +177,7 @@ function Declaracion() {
   const filas = [
     ["Qué se graba", "El audio del aula durante la clase. Solo audio, nunca video ni imagen."],
     ["Para qué", "Detectar incidencias de convivencia y devolverle a la docente un reporte por alumno y por aula."],
-    ["Dónde queda", "En este dispositivo. El audio no se sube a ningún servidor de OpenEd."],
+    ["Dónde queda", "En este dispositivo. El audio no se sube a ningún servidor de OpenTeacher."],
     ["Cuánto se guarda", "Hasta que se borre. Hay un botón de borrar siempre a la mano y borra el audio junto con la sesión."],
     ["Quién lo ve", "La docente que graba y quien ella decida. Nadie más tiene acceso."],
     ["Qué NO se hace", "No se identifica a ningún estudiante por su voz ni se le pone nombre a quien habla."],

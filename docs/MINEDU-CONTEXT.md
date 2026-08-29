@@ -1,6 +1,6 @@
 # MINEDU-CONTEXT
 
-Contexto normativo de OpenEd. Cada hecho duro lleva URL. Lo no verificado esta al final y
+Contexto normativo de OpenTeacher. Cada hecho duro lleva URL. Lo no verificado esta al final y
 marcado. Fecha de corte: **29 ago 2026**.
 
 Regla de la casa para este archivo: **si un dato no esta aca, el agente no lo dice.**
@@ -125,17 +125,17 @@ distintos. Usar "cerca de 19 600" o no usarla.
 
 ---
 
-## 5. El rol que OpenEd imita, y el hueco que reclama
+## 5. El rol que OpenTeacher imita, y el hueco que reclama
 
 **El auxiliar.** Cuaderno de incidencias, ficha por estudiante, insumo para la reunion con
 padres, primer manejo de conducta. Es exactamente lo que pidieron Mariale y Nicolas. Lo que el
-auxiliar **no** hace, y OpenEd tampoco: decidir medidas de proteccion, denunciar por el
+auxiliar **no** hace, y OpenTeacher tampoco: decidir medidas de proteccion, denunciar por el
 docente ni cerrar un caso.
 
 **El punto ciego.** Los 7 protocolos protegen al **estudiante**. Si el agredido es el docente,
 la RM 383-2025 (4.3) manda otra ruta: Reglamento Interno, citacion a padres, derivacion del
 estudiante, y autoridad competente solo si hay lesiones, amenaza de muerte o arma. **Nadie
-contiene al docente ahi.** Ese es el hueco de OpenEd, conecta directo con lo que dijeron Carmen
+contiene al docente ahi.** Ese es el hueco de OpenTeacher, conecta directo con lo que dijeron Carmen
 y Silvia, y es lo que hace verdadera la frase del lienzo sobre conocer el sistema educativo
 nacional.
 
@@ -152,7 +152,7 @@ clara en el texto.
 https://www.gob.pe/institucion/minedu/campa%C3%B1as/74910-educacion-te-escucha
 
 No se ignora, se nombra y se acota la diferencia: el soporte del MINEDU a docentes es
-**grupal, virtual y en horario de oficina**; OpenEd es **individual y a cualquier hora**.
+**grupal, virtual y en horario de oficina**; OpenTeacher es **individual y a cualquier hora**.
 Nombrarlo demuestra que el equipo conoce el sistema; ignorarlo debilita la propuesta.
 
 **PROVISIONAL:** la pagina de gob.pe (ultima actualizacion 5 ago 2026) describe la atencion a

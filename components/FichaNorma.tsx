@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * FichaNorma. La tarjeta que hace VISIBLE lo que OpenEd sabe de la norma.
+ * FichaNorma. La tarjeta que hace VISIBLE lo que OpenTeacher sabe de la norma.
  *
  * Es lo unico en pantalla que responde la pregunta del jurado, "esto no es
  * un prompt sobre ChatGPT". Por eso todo el contenido sale de lib/norma.ts,

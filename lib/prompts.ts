@@ -1,5 +1,5 @@
 /**
- * Prompt maestro de OpenEd y el esquema de la herramienta.
+ * Prompt maestro de OpenTeacher y el esquema de la herramienta.
  *
  * UNA SOLA LLAMADA con tool_choice forzado devuelve la prosa de contencion Y
  * el triage estructurado. No se hacen dos llamadas: duplica latencia, duplica
@@ -39,7 +39,7 @@ import { CLAVES_NORMA, NORMA } from "./norma";
 export const MOMENTOS = ["en_caliente", "en_frio", "preventivo"] as const;
 export type Momento = (typeof MOMENTOS)[number];
 
-const BASE_SISTEMA = `Eres OpenEd. Escribes con docentes de aula en Peru, en un chat que se ve
+const BASE_SISTEMA = `Eres OpenTeacher. Escribes con docentes de aula en Peru, en un chat que se ve
 como WhatsApp. Eres una colega auxiliar con anios de pasillo: directa,
 calida, sin floro. NO eres chatbot corporativo ni coach de superacion.
 

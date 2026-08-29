@@ -1,4 +1,4 @@
-# OpenEd, plan maestro
+# OpenTeacher, plan maestro
 
 Hackathon AIdea, Lima. Escrito el **29 ago 2026 a las 14:56** (hora Lima, verificada con `date`).
 Todo lo que sigue esta calculado contra ese reloj, no contra un dia entero.
@@ -52,7 +52,7 @@ audio, y que hace tres cosas en el mismo turno:
 quien por norma mantiene el cuaderno de incidencias y la ficha de seguimiento e informa al
 director y al Comite de Gestion del Bienestar (RVM 126-2023-MINEDU,
 https://www.minedu.gob.pe/reforma-magisterial/pdf/rvm-126-2023-minedu-situaciones-administrativas-auxiliares.pdf).
-Y en primaria de EBR el auxiliar **no existe**, asi que ahi OpenEd cubre un puesto que la
+Y en primaria de EBR el auxiliar **no existe**, asi que ahi OpenTeacher cubre un puesto que la
 escuela literalmente no tiene.
 
 **Donde esta la innovacion defendible:** los 7 protocolos vigentes protegen al **estudiante**.
@@ -147,7 +147,7 @@ punto de cableado es `app/page.tsx:63`, un `setTimeout` de 1100 ms que devuelve 
 - Auth, login, multi-colegio, roles, nomina por CSV, panel de administracion.
 - Resolucion de identidad con alias o fuzzy matching. Match exacto contra 5 filas; si no
   resuelve, `alumno_id = "no_resuelto"` y la incidencia se guarda igual.
-- Integracion o exportacion a SiseVe. No hay API publica verificada, y ademas OpenEd **no
+- Integracion o exportacion a SiseVe. No hay API publica verificada, y ademas OpenTeacher **no
   reporta ni asienta el Libro por decision**, no por falta de tiempo.
 - Respuestas en audio (TTS). Nuevas features de PWA. Cualquier refactor de `lib/claude.ts`.
 - La rama de riesgo suicida como beat de escenario. Vive en el prompt como frontera de

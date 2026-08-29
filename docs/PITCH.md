@@ -1,4 +1,4 @@
-# PITCH, OpenEd
+# PITCH, OpenTeacher
 
 Guion de sala. La coreografia de los tres minutos vive en `DEMO-GUION.md`; aca vive **lo que se
 dice, por que, y que se contesta cuando pregunten**.
@@ -8,7 +8,7 @@ dice, por que, y que se contesta cuando pregunten**.
 ## 1. La frase, si solo se puede decir una
 
 > El Peru tiene siete protocolos para proteger al estudiante. Cuando la agredida es la
-> profesora, no hay ninguno. OpenEd es el colega que la contiene a ella, le dice que hacer
+> profesora, no hay ninguno. OpenTeacher es el colega que la contiene a ella, le dice que hacer
 > antes de que sea tarde, y le deja la hoja que se lleva el viernes a la reunion con el padre.
 
 ## 2. Cronometro
@@ -195,6 +195,6 @@ ponderaciones, ni confirme que la edicion de hoy use las mismas.**
   **No existe.** Si preguntan: "no hay dato publico, porque el SiseVe no registra ese caso. Ese
   es parte del problema."
 - "Esta encriptado", "no guardamos nada", "es anonimo".
-- Que el reporte de OpenEd sea un registro oficial, o que reemplace al Libro o al SiseVe.
+- Que el reporte de OpenTeacher sea un registro oficial, o que reemplace al Libro o al SiseVe.
 - Cualquier cita textual de la RM 383-2025 que una persona del equipo no haya confirmado a mano
   antes de las 17:00.

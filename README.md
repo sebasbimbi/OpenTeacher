@@ -1,6 +1,6 @@
-# OpenEd
+# OpenTeacher
 
-Agente de WhatsApp para docentes peruanos. El docente reporta un incidente de aula, por texto o por audio, y OpenEd responde con contencion emocional mas tacticas inmediatas, y registra la incidencia para generar reportes por alumno y por aula.
+Agente de WhatsApp para docentes peruanos. El docente reporta un incidente de aula, por texto o por audio, y OpenTeacher responde con contencion emocional mas tacticas inmediatas, y registra la incidencia para generar reportes por alumno y por aula.
 
 Todo en espanol peruano. Hackathon AIdea, 29 de agosto.
 
@@ -72,7 +72,7 @@ Corre en un directorio de build aparte (`.next-prod`), asi que no le pisa el `.n
 
 ## Instalar en el telefono
 
-OpenEd es una PWA: se instala desde el navegador, sin app nativa y sin tienda. Abre https://opened-phi.vercel.app y:
+OpenTeacher es una PWA: se instala desde el navegador, sin app nativa y sin tienda. Abre https://opened-phi.vercel.app y:
 
 - **Android (Chrome):** menu de tres puntos, "Instalar aplicacion" o "Anadir a pantalla principal".
 - **iPhone (Safari):** boton de compartir, "Anadir a pantalla de inicio".
