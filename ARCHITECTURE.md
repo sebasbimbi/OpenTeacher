@@ -82,6 +82,20 @@ Los cuatro degradan con mensaje en pantalla y dejan el chat usable. Ninguno cuel
 | Menos de un segundo | Se descarta, no se crea burbuja, aviso "Muy corto". La siguiente grabacion funciona normal. |
 | Cancelar a mitad | Sin burbuja, sin aviso de error, barra en inactivo. |
 
+## PWA
+
+`app/manifest.ts` la hace instalable en el telefono: `display: standalone`, colores de la paleta de WhatsApp que ya usa la interfaz, e iconos 192, 512 y uno maskable con la zona segura que Android recorta.
+
+iOS ignora los iconos del manifest para la pantalla de inicio y usa `apple-icon.png`, que Next sirve desde `app/`. Sin ese archivo el atajo de iPhone sale con una captura de la pagina en lugar del icono, asi que no es opcional.
+
+Tres detalles de movil que no son cosmeticos:
+
+- La altura va en `dvh`, no en `vh`. Con `100vh` la barra dinamica de los navegadores moviles empuja el campo de escribir debajo del fold.
+- La barra de escribir lleva `env(safe-area-inset-bottom)`. En standalone en iPhone, el indicador de inicio se come esos pixeles.
+- No se bloquea el zoom. El salto de zoom al enfocar un input en iOS ya esta resuelto con el input a 16px, asi que no hace falta romper la accesibilidad con `maximum-scale=1`.
+
+Los iconos se generaron renderizando un SVG en Chromium, no a mano. El script no se deja en el repo: son archivos estaticos que no cambian.
+
 ## Variables de entorno
 
 Ver `.env.example`. `.env.local` esta en `.gitignore` y nunca se commitea.

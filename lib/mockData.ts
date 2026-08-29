@@ -36,7 +36,14 @@ export const CONTACTO = {
   iniciales: "OE",
 };
 
-/** Conversacion de arranque: se ve al abrir la pagina. */
+/**
+ * Conversacion de arranque. Solo el saludo, a proposito.
+ *
+ * La pantalla arranca casi vacia para que la PRIMERA nota de voz que
+ * aparezca sea la que se graba en vivo delante del jurado. Una nota
+ * semilla sin audio detras deja un boton de play muerto, y en proyector
+ * eso se lee como software roto.
+ */
 export const CONVERSACION_DEMO: Mensaje[] = [
   {
     id: "m1",
@@ -45,34 +52,11 @@ export const CONVERSACION_DEMO: Mensaje[] = [
       "Hola profe. Soy OpenEd. Cuenteme que paso en el aula, escribiendo o con un audio. Yo le respondo con que hacer ahora mismo y guardo el registro por usted.",
     hora: "10:02",
   },
-  {
-    id: "m2",
-    de: "docente",
-    texto: "Nota de voz",
-    hora: "10:04",
-    audio: true,
-    duracion: "0:38",
-  },
-  {
-    id: "m3",
-    de: "opened",
-    texto:
-      "Le escucho, profe. Primero usted: respire, no es su culpa y no tiene que resolverlo sola en ese minuto.\n\nAhora tres cosas concretas:\n1. Separe a los dos ninos sin sermon delante del aula.\n2. Digale al grupo lo que va a pasar, en una frase.\n3. Al salir, dos minutos a solas con cada uno.\n\nYa registre la incidencia. Al final de la semana le mando el reporte del aula.",
-    hora: "10:04",
-  },
 ];
 
 /** Respuesta de relleno mientras no llega el brief con los prompts reales. */
 export const RESPUESTA_ECO =
   "Anotado, profe. Registre lo que me conto. Cuando el equipo conecte el agente, aqui va la contencion y las tacticas para este caso.";
-
-/** Nota de voz simulada cuando el docente toca el microfono. */
-export const AUDIO_ECO: Omit<Mensaje, "id" | "hora"> = {
-  de: "docente",
-  texto: "Nota de voz",
-  audio: true,
-  duracion: "0:21",
-};
 
 export function horaAhora(): string {
   return new Date().toLocaleTimeString("es-PE", {

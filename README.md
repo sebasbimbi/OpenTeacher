@@ -51,6 +51,15 @@ La grabacion necesita https o localhost (requisito del navegador, no del proyect
 | `lib/agents.ts` | Orquestacion de los agentes. PENDIENTE. |
 | `lib/mockData.ts` | Datos pre-generados. De aqui vive la demo si la red falla. |
 
+## Instalar en el telefono
+
+OpenEd es una PWA: se instala desde el navegador, sin app nativa y sin tienda. Abre https://opened-phi.vercel.app y:
+
+- **Android (Chrome):** menu de tres puntos, "Instalar aplicacion" o "Anadir a pantalla principal".
+- **iPhone (Safari):** boton de compartir, "Anadir a pantalla de inicio".
+
+Queda con su icono y abre a pantalla completa, sin barra del navegador. El microfono funciona igual porque produccion es https, que es lo que el navegador exige para grabar.
+
 ## Documentos
 
 `PROBLEM.md` · `PRODUCT.md` · `ARCHITECTURE.md` · `PITCH.md` · `TEAM.md`

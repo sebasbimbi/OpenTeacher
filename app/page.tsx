@@ -124,8 +124,8 @@ export default function Page() {
   }
 
   return (
-    <main className="flex min-h-screen justify-center bg-[#0b141a]">
-      <div className="flex h-screen w-full max-w-[440px] flex-col bg-[var(--wa-fondo)] shadow-2xl shadow-black/60">
+    <main className="flex min-h-dvh justify-center bg-[#0b141a]">
+      <div className="flex h-dvh w-full max-w-[440px] flex-col bg-[var(--wa-fondo)] shadow-2xl shadow-black/60">
         <Cabecera />
 
         <div className="flex-1 overflow-y-auto px-3 py-4">
@@ -381,7 +381,7 @@ function Barra({
 
   return (
     <form
-      className="flex items-center gap-2 bg-[var(--wa-barra)] px-3 py-2.5"
+      className="flex items-center gap-2 bg-[var(--wa-barra)] px-3 py-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))]"
       onSubmit={(e) => {
         e.preventDefault();
         onEnviar();
