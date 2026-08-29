@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/*
+ * OpenEd. La paleta esta clavada a la de WhatsApp a proposito:
+ * el simulador tiene que leerse como WhatsApp en un proyector,
+ * asi que no sigue el tema del sistema. Un solo look, siempre igual.
+ */
+:root {
+  --wa-header: #075e54;
+  --wa-fondo: #ece5dd;
+  --wa-burbuja-propia: #dcf8c6;
+  --wa-burbuja-otra: #ffffff;
+  --wa-texto: #111b21;
+  --wa-meta: #667781;
+  --wa-accion: #00a884;
+  --wa-barra: #f0f2f5;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #0b141a;
+  color: var(--wa-texto);
+  font-family: "Segoe UI", Helvetica, Arial, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
