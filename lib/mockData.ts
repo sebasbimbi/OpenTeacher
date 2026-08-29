@@ -30,6 +30,8 @@ export interface Mensaje {
   transcribiendo?: boolean;
   /** Fila de la tabla normativa que pinta la tarjeta bajo la burbuja. */
   claveNorma?: string;
+  /** Este mensaje ES la burbuja del cuaderno, no un globo de texto. */
+  cuaderno?: boolean;
 }
 
 export const CONTACTO = {

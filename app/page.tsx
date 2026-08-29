@@ -10,6 +10,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import BurbujaCuaderno from "@/components/CuadernoOverlay";
 import FichaNorma from "@/components/FichaNorma";
 import { extensionDeMime, formatearDuracion } from "@/lib/audioErrores";
 import { useGrabadora, type Grabacion } from "@/lib/grabadora";
@@ -94,6 +95,7 @@ export default function Page() {
         bloque_1?: string;
         bloque_2?: string;
         clave_norma?: string;
+        resumen?: string;
       } | null;
 
       const bloque1 = datos?.bloque_1?.trim() || RESPUESTA_ECO.split("\n\n")[0];
@@ -111,6 +113,14 @@ export default function Page() {
         await esperar(DELAY_RESPUESTA_MS);
         setEscribiendo(false);
         agregar({ de: "opened", texto: bloque2, claveNorma: clave });
+      }
+
+      // El cuaderno solo aparece cuando hubo algo que registrar. Si fue
+      // convivencia y no violencia, no hay nada que anotar y ofrecerlo seria
+      // ruido justo donde acabamos de decir que no hay protocolo.
+      if (datos?.resumen?.trim() && clave && clave !== "sin_protocolo") {
+        await esperar(500);
+        agregar({ de: "opened", texto: "Cuaderno de aula", cuaderno: true });
       }
     } catch {
       setEscribiendo(false);
@@ -256,6 +266,14 @@ function AvisoError({ texto, onCerrar }: { texto: string; onCerrar: () => void }
 
 function Burbuja({ mensaje }: { mensaje: Mensaje }) {
   const propia = mensaje.de === "docente";
+
+  if (mensaje.cuaderno) {
+    return (
+      <li className="flex justify-start">
+        <BurbujaCuaderno />
+      </li>
+    );
+  }
 
   return (
     <li className={propia ? "flex flex-col items-end" : "flex flex-col items-start"}>
