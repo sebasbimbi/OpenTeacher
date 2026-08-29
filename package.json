@@ -14,7 +14,8 @@
     "test:aula": "node scripts/aula.test.mjs",
     "test:grabacion": "node scripts/aula-grabacion.test.mjs",
     "test:agente": "node scripts/agente.test.mjs",
-    "dev:alt": "NEXT_DIST_DIR=.next-alt next dev -p 3009"
+    "dev:alt": "NEXT_DIST_DIR=.next-alt next dev -p 3009",
+    "test:criterio": "node scripts/criterio.test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.122.0",
