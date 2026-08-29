@@ -28,8 +28,12 @@ npm run dev
 Abre http://localhost:3000. Sin `ANTHROPIC_API_KEY` ni `OPENAI_API_KEY` el proyecto corre en modo mock y no toca la red.
 
 ```bash
-npm run check   # check de los helpers de audio
+npm run check        # helpers de audio, sin dependencias, corre en un segundo
+npm run test:audio   # ruta de audio en Chromium real: camino feliz + los 3 modos de falla
 ```
+
+`test:audio` corre contra localhost por defecto. Para apuntar a produccion:
+`URL_APP=https://opened-phi.vercel.app/ npm run test:audio`
 
 La grabacion necesita https o localhost (requisito del navegador, no del proyecto).
 
