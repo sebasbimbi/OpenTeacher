@@ -5,8 +5,13 @@ import { TRANSCRIPCION_MOCK } from "@/lib/mockData";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
-const MODELO = "whisper-1";
+// Proveedor por configuracion, no por codigo. Groq expone /openai/v1 con la
+// misma forma de API, asi que cambiar de proveedor son dos variables y no una
+// capa de abstraccion. whisper-large-v3-turbo de Groq ademas rinde mejor que
+// whisper-1 en espanol.
+const BASE_URL = process.env.TRANSCRIPCION_BASE_URL ?? "https://api.openai.com/v1";
+const ENDPOINT = `${BASE_URL}/audio/transcriptions`;
+const MODELO = process.env.TRANSCRIPCION_MODELO ?? "whisper-1";
 const TIMEOUT_MS = 45_000;
 const MOCK_DELAY_MS = 900;
 
@@ -77,7 +82,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (respuesta.status === 429) {
-    // OpenAI manda Retry-After. Lo pasamos tal cual en vez de inventar un backoff.
+    // El proveedor manda Retry-After. Lo pasamos tal cual en vez de inventar un backoff.
     const retryAfter = respuesta.headers.get("retry-after");
     return json(
       { error: "Hay muchas transcripciones en cola. Intenta de nuevo en unos segundos." },
