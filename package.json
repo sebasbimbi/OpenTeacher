@@ -7,7 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/audioErrores.check.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/consentimiento.check.ts",
+    "check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/audioErrores.check.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/consentimiento.check.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/norma.check.ts",
     "test:audio": "node scripts/audio.test.mjs",
     "test:movil": "node scripts/movil.test.mjs",
     "build:check": "NEXT_DIST_DIR=.next-build next build",
