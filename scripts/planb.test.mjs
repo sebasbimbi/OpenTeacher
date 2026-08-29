@@ -72,22 +72,29 @@ await noEstaEnBlanco("el chat al cargar");
 
 // Cuanto tarda el chat en RESPONDER AL TECLADO, no en pintarse. Antes de que
 // React hidrate, lo que se escribe se pierde en silencio: el input se ve
-// normal y el boton de enviar nunca aparece. Si Sebastian teclea apenas carga
-// la pagina, escribe al vacio. Se mide para saber cuanto hay que esperar.
+// normal, acepta letras, y el boton de enviar nunca aparece porque el estado
+// de React sigue vacio. Si Sebastian teclea apenas carga la pagina, escribe
+// al vacio. Se reintenta hasta que el chat responde, y se mide cuanto tardo.
+const RELATO = "Un alumno me gritó delante de todo el salón y me quedé helada.";
 const t0Hidratacion = Date.now();
-await p.getByLabel("Mensaje").fill("Un alumno me gritó delante de todo el salón y me quedé helada.");
-await p.waitForSelector('button[aria-label="Enviar mensaje"]', { timeout: TECHO_MS }).catch(async () => {
-  // Se perdio por hidratacion tardia: se reescribe una vez y se vuelve a mirar.
-  await p.getByLabel("Mensaje").fill("Un alumno me gritó delante de todo el salón y me quedé helada.");
-  await p.waitForSelector('button[aria-label="Enviar mensaje"]', { timeout: TECHO_MS });
-});
+let vivo = false;
+for (let intento = 0; intento < 20 && !vivo; intento++) {
+  await p.getByRole("textbox").first().fill("");
+  await p.getByRole("textbox").first().fill(RELATO);
+  vivo = await p
+    .waitForSelector('button[aria-label="Enviar mensaje"]', { timeout: 1000 })
+    .then(() => true)
+    .catch(() => false);
+}
 const msHidratacion = Date.now() - t0Hidratacion;
+assert.ok(vivo, `el chat nunca acepto teclado: ${msHidratacion} ms sin que apareciera el boton de enviar`);
 
 await paso("la docente escribe y OpenEd responde", async () => {
-  await p.getByRole("button", { name: /Enviar mensaje/i }).click();
+  const antes = await p.locator("li").count();
+  await p.locator('button[aria-label="Enviar mensaje"]').click();
   await p.waitForFunction(
-    () => document.querySelectorAll("li").length >= 3,
-    null,
+    (n) => document.querySelectorAll("li").length > n,
+    antes,
     { timeout: TECHO_MS },
   );
 });
