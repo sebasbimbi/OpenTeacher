@@ -79,7 +79,7 @@ assert.doesNotMatch(
 res.push("PASS  ninguna tarjeta pone un numero cerca de SiseVe");
 
 // ------------------ 3. la ficha de la docente agredida no se inventa un numero
-const docente = p.locator('[data-clave="docente_agredido"]');
+const docente = p.locator('[data-clave="docente_agredido"]').first();
 await docente.waitFor();
 const textoDocente = await docente.innerText();
 assert.equal(await docente.getAttribute("data-estado"), "informativa");
@@ -95,7 +95,7 @@ assert.doesNotMatch(textoDocente, /Plazo de atención/, "este caso no tiene plaz
 res.push("PASS  la docente agredida cita 4.3 y no inventa numero ni plazo");
 
 // --------------------------------------------- 4. la ficha sin norma no asusta
-const sinNorma = p.locator('[data-clave="sin_protocolo"]');
+const sinNorma = p.locator('[data-clave="sin_protocolo"]').first();
 await sinNorma.waitFor();
 const textoSin = await sinNorma.innerText();
 assert.match(textoSin, /Sin protocolo aplicable/i);
@@ -131,6 +131,60 @@ const tamanos = await p.evaluate(() =>
 const minimo = Math.min(...tamanos);
 assert.ok(minimo >= 14, `hay texto de ${minimo}px en la ruta o el titulo, ilegible a 5 metros`);
 res.push(`PASS  sin desborde horizontal y el texto clave no baja de ${minimo}px`);
+
+// ---------------- 7b. LA MEDIDA QUE DECIDE LA DEMO: cabe en el proyector
+//
+// La tarjeta comparte pantalla con la burbuja de contencion, y esa burbuja es
+// la mitad del argumento: "la contiene A ELLA y ademas sabe de la norma". Si
+// la tarjeta empuja la burbuja fuera de vista, parecemos un buscador de
+// protocolos. Se mide contra 1024x768, que es el proyector de sala que no
+// controlamos, no contra el laptop.
+
+const ANCHO_TELEFONO = 440;
+const TECHO = { docente_agredido: 380, protocolo_03: 420, sin_protocolo: 340 };
+
+const medidor = await ctx.newPage();
+await medidor.setViewportSize({ width: ANCHO_TELEFONO, height: 2400 });
+await medidor.goto(URL_FICHA, { waitUntil: "networkidle" });
+
+const alturas = {};
+for (const clave of Object.keys(TECHO)) {
+  // La ultima de cada clave es la variante de chat en el listado suelto.
+  const caja = await medidor.locator(`[data-clave="${clave}"]`).nth(clave === "docente_agredido" ? 1 : 0).boundingBox();
+  alturas[clave] = Math.round(caja.height);
+  assert.ok(
+    alturas[clave] <= TECHO[clave],
+    `la tarjeta ${clave} mide ${alturas[clave]}px y el techo son ${TECHO[clave]}px: empuja la contencion fuera de la pantalla`,
+  );
+}
+res.push(
+  `PASS  alturas en el chat: docente ${alturas.docente_agredido}px, protocolo ${alturas.protocolo_03}px, sin norma ${alturas.sin_protocolo}px`,
+);
+
+await medidor.setViewportSize({ width: 1024, height: 768 });
+await medidor.goto(URL_FICHA, { waitUntil: "networkidle" });
+const escena = await medidor.evaluate(() => {
+  const s = document.querySelector("[data-escena=demo]");
+  const bur = s.querySelector("[data-burbuja=contencion]");
+  const ficha = s.querySelector("[data-estado]");
+  const chip = s.querySelector("[data-chip=cuaderno]");
+  const caja = (el) => el.getBoundingClientRect();
+  return {
+    desborda: s.scrollHeight > s.clientHeight,
+    burbujaArriba: caja(bur).top >= 0,
+    fichaDentro: caja(ficha).bottom <= window.innerHeight,
+    chipDentro: caja(chip).bottom <= window.innerHeight,
+    sobra: Math.round(window.innerHeight - caja(chip).bottom),
+  };
+});
+assert.equal(escena.desborda, false, "la escena scrollea a 1024x768");
+assert.equal(escena.burbujaArriba, true, "la burbuja de contencion quedo scrolleada fuera de vista");
+assert.equal(escena.fichaDentro, true, "la tarjeta no entra entera");
+assert.equal(escena.chipDentro, true, "el chip del cuaderno no entra");
+res.push(
+  `PASS  a 1024x768 entran burbuja, tarjeta y chip sin scroll, con ${escena.sobra}px de sobra`,
+);
+await medidor.close();
 
 // ------------------------------------------------------------- 7. consola limpia
 assert.deepEqual(errores, [], `la consola tiro errores: ${errores.join(" | ")}`);

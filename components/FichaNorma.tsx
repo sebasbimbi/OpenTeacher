@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * FichaNorma. La tarjeta que hace VISIBLE lo que OpenEd sabe de la norma.
  *
@@ -17,6 +19,7 @@
  * protocolo, o su ausencia) es lo mas grande de la tarjeta.
  */
 
+import { useState } from "react";
 import {
   citaCorta,
   etiquetaProtocolo,
@@ -56,19 +59,36 @@ export interface FichaNormaProps {
   /** O la fila ya resuelta, para el cuaderno y para los checks. */
   fila?: FilaNorma;
   /**
-   * El cronograma de hitos. Apagado en el chat a proposito: en caliente la
-   * docente necesita QUE HACER AHORA, no la linea de tiempo de treinta dias,
-   * y una tarjeta de protocolo completa se desborda en un proyector de
-   * 1024x768. El cronograma se consulta con calma en el cuaderno, que es
-   * quien enciende esto.
+   * Donde se pinta la tarjeta, que es lo que decide cuanto muestra.
+   *
+   * "chat": en caliente y en un proyector que puede ser de 1024x768. La
+   * tarjeta comparte pantalla con la burbuja de contencion, y esa burbuja es
+   * la mitad del argumento: si la tarjeta la empuja fuera de vista, parecemos
+   * un buscador de protocolos. Asi que aca la tarjeta se aprieta.
+   *
+   * "cuaderno": hay espacio y se consulta con calma. Sale todo, incluido el
+   * cronograma de hitos.
    */
-  mostrarHitos?: boolean;
+  variante?: "chat" | "cuaderno";
 }
 
-export default function FichaNorma({ clave, fila, mostrarHitos = false }: FichaNormaProps) {
+/** Cuantos pasos de la ruta se ven de entrada en el chat. */
+const PASOS_EN_CHAT = 2;
+
+export default function FichaNorma({ clave, fila, variante = "chat" }: FichaNormaProps) {
   const norma = fila ?? resolverNorma(clave);
   const estilo = ESTILO[norma.nivel];
   const numero = etiquetaProtocolo(norma);
+  const esCuaderno = variante === "cuaderno";
+  const [rutaAbierta, setRutaAbierta] = useState(false);
+
+  // En el chat la ruta arranca recortada. Lo que queda visible de entrada ya
+  // sostiene el argumento: el vacio del numero, el titulo, los primeros pasos,
+  // el bloque del porque y la cita de fuente. Nadie tiene que hacer clic
+  // durante la demo.
+  const todaLaRuta = esCuaderno || rutaAbierta;
+  const pasos = todaLaRuta ? norma.ruta : norma.ruta.slice(0, PASOS_EN_CHAT);
+  const ocultos = norma.ruta.length - pasos.length;
 
   return (
     <article
@@ -77,12 +97,12 @@ export default function FichaNorma({ clave, fila, mostrarHitos = false }: FichaN
       className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-black/10"
     >
       <p
-        className={`${estilo.banda} px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-white`}
+        className={`${estilo.banda} px-4 py-1 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-white`}
       >
         {estilo.rotulo}
       </p>
 
-      <div className="px-4 py-3.5">
+      <div className="px-4 py-3">
         <header className="flex items-start gap-3">
           {/* Cuando no hay protocolo, el hueco se DECLARA. Un guion del tamano
               del numero dice "aqui la ley no puso un procedimiento", que es
@@ -99,7 +119,11 @@ export default function FichaNorma({ clave, fila, mostrarHitos = false }: FichaN
           </h3>
         </header>
 
-        <p className="mt-2.5 text-[14px] leading-snug text-[#4a5a62]">{norma.cuando}</p>
+        {/* En el chat esto lo acaba de decir la burbuja de contencion, y cada
+            linea aqui empuja esa burbuja fuera de la pantalla del proyector. */}
+        {esCuaderno ? (
+          <p className="mt-2 text-[14px] leading-snug text-[#4a5a62]">{norma.cuando}</p>
+        ) : null}
 
         {norma.plazo ? (
           <p
@@ -109,9 +133,9 @@ export default function FichaNorma({ clave, fila, mostrarHitos = false }: FichaN
           </p>
         ) : null}
 
-        <Rotulo>Qué corresponde hacer</Rotulo>
-        <ol className="mt-1.5 flex flex-col gap-1.5">
-          {norma.ruta.map((paso) => (
+        {esCuaderno ? <Rotulo className="mt-3">Qué corresponde hacer</Rotulo> : null}
+        <ol className={`flex flex-col gap-1 ${esCuaderno ? "mt-1" : "mt-2.5"}`}>
+          {pasos.map((paso) => (
             <li
               key={paso}
               className="flex gap-2 text-[14.5px] leading-snug text-[var(--wa-texto)]"
@@ -124,7 +148,17 @@ export default function FichaNorma({ clave, fila, mostrarHitos = false }: FichaN
           ))}
         </ol>
 
-        {mostrarHitos && norma.hitos.length > 0 ? (
+        {ocultos > 0 ? (
+          <button
+            type="button"
+            onClick={() => setRutaAbierta(true)}
+            className={`${estilo.acento} mt-1 text-[13.5px] font-semibold underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2`}
+          >
+            Ver los {norma.ruta.length} pasos
+          </button>
+        ) : null}
+
+        {esCuaderno && norma.hitos.length > 0 ? (
           <>
             <Rotulo>Hitos con plazo</Rotulo>
             <dl className="mt-1.5 flex flex-col divide-y divide-black/[0.07] border-y border-black/[0.07]">
@@ -143,23 +177,29 @@ export default function FichaNorma({ clave, fila, mostrarHitos = false }: FichaN
         ) : null}
 
         {norma.noAplica ? (
-          <div className="mt-3.5 rounded-lg bg-[#fdf3d3] px-3 py-2.5">
-            <Rotulo className="mt-0">{estilo.rotuloAviso}</Rotulo>
-            <p className="mt-1 text-[14px] leading-snug text-[#5b5344]">{norma.noAplica}</p>
+          <div className="mt-2.5 rounded-lg bg-[#fdf3d3] px-3 py-2">
+            {esCuaderno ? <Rotulo className="mt-0">{estilo.rotuloAviso}</Rotulo> : null}
+            <p className="mt-0 text-[14px] leading-snug text-[#5b5344]">{norma.noAplica}</p>
           </div>
         ) : null}
 
-        <footer className="mt-3.5 border-t border-black/10 pt-2.5">
-          <p className="text-[12.5px] leading-snug text-[var(--wa-meta)]">{citaCorta(norma)}</p>
-          <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-[var(--wa-meta)]">
+        <footer className="mt-3 border-t border-black/10 pt-2">
+          {/* La prueba. Se queda completa siempre: sin fuente auditable esto
+              es una tarjeta bonita y nada mas. */}
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12.5px] leading-snug text-[var(--wa-meta)]">
             <Sello verificado={norma.verificado} />
             <span>
-              PDF p. {norma.fuente.paginaPdf}, folio {norma.fuente.paginaDocumento}
+              {citaCorta(norma)} · PDF p. {norma.fuente.paginaPdf}, folio{" "}
+              {norma.fuente.paginaDocumento}
             </span>
           </p>
-          <p className="mt-2 text-[11.5px] leading-snug text-[var(--wa-meta)]">
-            Esto es insumo para el Libro de Registro de Incidencias y para la reunión con la
-            familia. No es registro oficial y no reemplaza al SíseVe.
+          {/* El descargo va en TODAS las tarjetas, siempre: si una docente cree
+              que ya cumplio porque le escribio al bot, el producto le hizo dano.
+              En el chat cabe en una linea; en el cuaderno se dice entero. */}
+          <p className="mt-1.5 text-[11.5px] leading-snug text-[var(--wa-meta)]">
+            {esCuaderno
+              ? "Esto es insumo para el Libro de Registro de Incidencias y para la reunión con la familia. No es registro oficial y no reemplaza al SíseVe."
+              : "Insumo para el Libro de Incidencias. No es registro oficial."}
           </p>
         </footer>
       </div>
