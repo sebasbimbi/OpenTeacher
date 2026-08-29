@@ -71,7 +71,7 @@ export function useGrabadora() {
 
     if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
       setError(
-        "Este navegador no permite grabar audio aqui. Necesita una conexion segura (https). Escribeme el mensaje.",
+        "Este navegador no permite grabar audio aquí. Necesita una conexión segura (https). Escríbeme el mensaje.",
       );
       return false;
     }
@@ -106,7 +106,7 @@ export function useGrabadora() {
       soltarStream();
       setGrabando(false);
       setTranscurridoMs(0);
-      setError("Se corto la grabacion. Vuelve a intentar o escribeme el mensaje.");
+      setError("Se cortó la grabación. Vuelve a intentar o escríbeme el mensaje.");
       resolverRef.current?.(null);
       resolverRef.current = null;
     };
@@ -128,7 +128,7 @@ export function useGrabadora() {
         return;
       }
       if (duracionMs < DURACION_MINIMA_MS || blob.size === 0) {
-        setError("Muy corto. Manten la grabacion al menos un segundo.");
+        setError("Muy corto. Mantén la grabación al menos un segundo.");
         resolver?.(null);
         return;
       }

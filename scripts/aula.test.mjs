@@ -34,20 +34,20 @@ assert.equal(await p.locator("text=Permiso registrado").count(), 0);
 res.push("PASS  sin permiso no existe ningun control de grabacion en el DOM");
 
 // -------------------------------------- 2. incompleto sigue sin abrir la puerta
-await p.getByLabel("Institucion educativa").fill("IE 1234 Jose Carlos Mariategui");
+await p.getByLabel("Institución educativa").fill("IE 1234 José Carlos Mariátegui");
 await p.getByLabel("Aula").fill("4to B");
-await p.getByLabel("Quien autoriza").fill("Directora Carmen Rojas");
+await p.getByLabel("Quién autoriza").fill("Directora Carmen Rojas");
 // A proposito: NO marco las tres casillas.
 await p.getByRole("button", { name: /Registrar el permiso/ }).click();
 await p.waitForSelector('[role="alert"]:not(#__next-route-announcer__)');
 const aviso = await p.locator('[role="alert"]:not(#__next-route-announcer__)').innerText();
-assert.match(aviso, /autorizacion del colegio/);
+assert.match(aviso, /autorizaci.n del colegio/);
 assert.equal(await p.locator("text=Permiso registrado").count(), 0, "abrio la puerta sin las casillas");
 res.push("PASS  con datos pero sin las tres casillas la puerta NO abre, y dice que falta");
 
 // ------------------------------------------------ 3. completo abre la consola
 for (const t of [
-  /La direccion del colegio autorizo/,
+  /La direcci.n del colegio autoriz/,
   /Las familias fueron informadas/,
   /avisar en voz alta a los estudiantes/,
 ]) {
@@ -55,7 +55,7 @@ for (const t of [
 }
 await p.getByRole("button", { name: /Registrar el permiso/ }).click();
 await p.waitForSelector("text=Permiso registrado", { timeout: 5000 });
-assert.equal(await p.locator("text=IE 1234 Jose Carlos Mariategui").count() > 0, true);
+assert.equal(await p.locator("text=IE 1234 José Carlos Mariátegui").count() > 0, true);
 res.push("PASS  con el registro completo aparece la consola con el permiso a la vista");
 
 // -------------------------------------------- 4. sobrevive a recargar la pagina
@@ -64,7 +64,7 @@ await p.waitForSelector("text=Permiso registrado", { timeout: 5000 });
 res.push("PASS  el permiso sobrevive a recargar");
 
 // ------------------------------------- 5. borrar deja todo cerrado otra vez
-await p.getByRole("button", { name: /Borrar la sesion/ }).click();
+await p.getByRole("button", { name: /Borrar la sesi.n/ }).click();
 await p.waitForSelector("text=Registro del permiso", { timeout: 5000 });
 assert.equal(await p.locator("text=Permiso registrado").count(), 0);
 await p.reload({ waitUntil: "networkidle" });

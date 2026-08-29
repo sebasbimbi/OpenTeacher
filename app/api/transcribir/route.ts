@@ -58,10 +58,10 @@ export async function POST(req: NextRequest) {
   }
 
   if (!archivo || archivo.size === 0) {
-    return json({ error: "No llego ningun audio." }, 400);
+    return json({ error: "No llegó ningún audio." }, 400);
   }
   if (archivo.size > TAMANO_MAXIMO_BYTES) {
-    return json({ error: "El audio es muy largo. Manda uno mas corto." }, 413);
+    return json({ error: "El audio es muy largo. Manda uno más corto." }, 413);
   }
 
   const salida = new FormData();
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
   } catch {
-    return json({ error: "La transcripcion tardo demasiado. Vuelve a intentar." }, 504);
+    return json({ error: "La transcripción tardó demasiado. Vuelve a intentar." }, 504);
   }
 
   if (respuesta.status === 429) {
@@ -94,13 +94,13 @@ export async function POST(req: NextRequest) {
   if (!respuesta.ok) {
     const detalle = await respuesta.text().catch(() => "");
     console.error("[transcribir] OpenAI", respuesta.status, detalle.slice(0, 500));
-    return json({ error: "No pude transcribir el audio. Escribeme el mensaje." }, 502);
+    return json({ error: "No pude transcribir el audio. Escríbeme el mensaje." }, 502);
   }
 
   const datos = (await respuesta.json().catch(() => null)) as { text?: string } | null;
   const texto = datos?.text?.trim();
   if (!texto) {
-    return json({ error: "El audio salio vacio. Vuelve a grabar." }, 422);
+    return json({ error: "El audio salió vacío. Vuelve a grabar." }, 422);
   }
 
   return json({ texto, mock: false }, 200);

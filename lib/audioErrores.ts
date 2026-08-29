@@ -25,20 +25,20 @@ export function mensajeDeErrorAudio(error: unknown): string {
     case "NotAllowedError":
     case "PermissionDeniedError":
     case "SecurityError":
-      return "No me diste permiso al microfono. Activalo en el candado de la barra del navegador y vuelve a intentar. Mientras tanto puedes escribirme.";
+      return "No me diste permiso al micrófono. Actívalo en el candado de la barra del navegador y vuelve a intentar. Mientras tanto puedes escribirme.";
     case "NotFoundError":
     case "DevicesNotFoundError":
-      return "No encuentro un microfono conectado. Conecta uno o escribeme el mensaje.";
+      return "No encuentro un micrófono conectado. Conecta uno o escríbeme el mensaje.";
     case "NotReadableError":
     case "TrackStartError":
-      return "El microfono esta ocupado por otra aplicacion. Cierrala y vuelve a intentar.";
+      return "El micrófono está ocupado por otra aplicación. Ciérrala y vuelve a intentar.";
     case "OverconstrainedError":
     case "ConstraintNotSatisfiedError":
-      return "Tu microfono no soporta esta configuracion. Prueba con otro dispositivo o escribeme.";
+      return "Tu micrófono no soporta esta configuración. Prueba con otro dispositivo o escríbeme.";
     case "AbortError":
-      return "La grabacion se interrumpio. Vuelve a intentar.";
+      return "La grabación se interrumpió. Vuelve a intentar.";
     default:
-      return "No pude grabar el audio. Vuelve a intentar o escribeme el mensaje.";
+      return "No pude grabar el audio. Vuelve a intentar o escríbeme el mensaje.";
   }
 }
 

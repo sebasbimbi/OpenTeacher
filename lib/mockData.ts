@@ -32,7 +32,7 @@ export interface Mensaje {
 
 export const CONTACTO = {
   nombre: "OpenEd",
-  estado: "en linea",
+  estado: "en línea",
   iniciales: "OE",
 };
 
@@ -49,7 +49,7 @@ export const CONVERSACION_DEMO: Mensaje[] = [
     id: "m1",
     de: "opened",
     texto:
-      "Hola profe. Soy OpenEd. Cuenteme que paso en el aula, escribiendo o con un audio. Le respondo que hacer ahora y le dejo el registro escrito para direccion y para la reunion con el padre.\n\nNo soy psicologa, y esto no reemplaza el Libro de Incidencias ni el SiseVe.",
+      "Hola profe. Soy OpenEd. Cuénteme qué pasó en el aula, escribiendo o con un audio. Le respondo qué hacer ahora y le dejo el registro escrito para dirección y para la reunión con el padre.\n\nNo soy psicóloga, y esto no reemplaza el Libro de Incidencias ni el SíseVe.",
     hora: "10:02",
   },
 ];
@@ -63,11 +63,11 @@ export const CONVERSACION_DEMO: Mensaje[] = [
  * desde la tarjeta, nunca el texto.
  */
 export const RESPUESTA_ECO =
-  "Miss, primero usted. Los separo y los mando a direccion, y eso estuvo bien hecho. Quedarse mal el resto del dia no es que lo hizo mal: es que aguanto sola algo que asusta.\n\n" +
-  "Dejemoslo escrito ahora que esta fresco. Fue agresion entre companeros, y ahi la regla es atenderlos POR SEPARADO. Nunca juntarlos a que se pidan disculpas en el momento, ni preguntarles delante del salon.\n\n" +
-  "Lo que mas pesa de lo que me conto es el \"ya van varias veces\". Si se repite, deja de ser una pelea y pasa a ser un patron, y un patron si se puede trabajar.\n\n" +
-  "Manana una sola cosa: recibalos en la puerta, por su nombre, antes de que entren al salon. Suena tonto y esta medido.\n\n" +
-  "Le dejo el registro escrito para direccion y para la reunion con el padre. Es insumo, no reemplaza el Libro de Incidencias ni el SiseVe.";
+  "Miss, primero usted. Los separó y los mandó a dirección, y eso estuvo bien hecho. Quedarse mal el resto del día no es que lo hizo mal: es que aguantó sola algo que asusta.\n\n" +
+  "Dejémoslo escrito ahora que está fresco. Fue agresión entre compañeros, y ahí la regla es atenderlos POR SEPARADO. Nunca juntarlos a que se pidan disculpas en el momento, ni preguntarles delante del salón.\n\n" +
+  "Lo que más pesa de lo que me contó es el \"ya van varias veces\". Si se repite, deja de ser una pelea y pasa a ser un patrón, y un patrón sí se puede trabajar.\n\n" +
+  "Mañana una sola cosa: recíbalos en la puerta, por su nombre, antes de que entren al salón. Suena tonto y está medido.\n\n" +
+  "Le dejo el registro escrito para dirección y para la reunión con el padre. Es insumo, no reemplaza el Libro de Incidencias ni el SíseVe.";
 
 export function horaAhora(): string {
   return new Date().toLocaleTimeString("es-PE", {
@@ -86,4 +86,4 @@ export function horaAhora(): string {
  * cuanto el equipo entregue el clip.
  */
 export const TRANSCRIPCION_MOCK =
-  "Profe, disculpe. Hoy en el recreo dos chicos de cuarto se agarraron a golpes y cuando los separe uno me dijo que ya van varias veces. No supe que hacer, los mande a direccion y me quede mal el resto del dia.";
+  "Profe, disculpe. Hoy en el recreo dos chicos de cuarto se agarraron a golpes y cuando los separé uno me dijo que ya van varias veces. No supe qué hacer, los mandé a dirección y me quedé mal el resto del día.";

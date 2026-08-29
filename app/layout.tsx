@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "OpenEd",
   description:
-    "Agente de WhatsApp para docentes peruanos. Contencion inmediata y registro de incidencias de aula.",
+    "Agente de WhatsApp para docentes peruanos. Contención inmediata y registro de incidencias de aula.",
   // iOS ignora los iconos del manifest para la pantalla de inicio y usa
   // apple-icon.png, que Next sirve desde app/. Sin esto el atajo de iPhone
   // sale con una captura de la pagina en vez del icono.

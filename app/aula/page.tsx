@@ -79,11 +79,11 @@ function Encabezado() {
         OpenEd
       </p>
       <h1 className="text-[28px] font-semibold leading-tight tracking-tight sm:text-[34px]">
-        Grabacion de aula
+        Grabación de aula
       </h1>
       <p className="mt-2 max-w-[38rem] text-[15px] leading-relaxed text-[#9fb0b9]">
         Graba la clase completa y OpenEd extrae las incidencias solo. La docente
-        no tiene que reportar nada ni acordarse de nada al final del dia.
+        no tiene que reportar nada ni acordarse de nada al final del día.
       </p>
     </header>
   );
@@ -120,20 +120,20 @@ function Puerta({ onOtorgar }: { onOtorgar: (c: Consentimiento) => void }) {
       <section>
         <h2 className="mb-1 text-[17px] font-semibold">Registro del permiso</h2>
         <p className="mb-5 text-[14px] leading-relaxed text-[#9fb0b9]">
-          Queda guardado junto a la sesion. Es la constancia de que este colegio
-          y estas familias autorizaron esta grabacion en particular.
+          Queda guardado junto a la sesión. Es la constancia de que este colegio
+          y estas familias autorizaron esta grabación en particular.
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <Campo etiqueta="Institucion educativa" placeholder="IE 1234 Jose Carlos Mariategui" {...campo("institucion")} />
+          <Campo etiqueta="Institución educativa" placeholder="IE 1234 José Carlos Mariátegui" {...campo("institucion")} />
           <Campo etiqueta="Aula" placeholder="4to B" {...campo("aula")} />
           <Campo etiqueta="Fecha" tipo="date" {...campo("fecha")} />
-          <Campo etiqueta="Quien autoriza" placeholder="Nombre y cargo" {...campo("responsable")} />
+          <Campo etiqueta="Quién autoriza" placeholder="Nombre y cargo" {...campo("responsable")} />
         </div>
 
         <div className="mt-6 flex flex-col gap-3">
           <Casilla {...casilla("colegio")}>
-            La direccion del colegio autorizo grabar esta clase.
+            La dirección del colegio autorizó grabar esta clase.
           </Casilla>
           <Casilla {...casilla("familias")}>
             Las familias fueron informadas y dieron su consentimiento.
@@ -160,7 +160,7 @@ function Puerta({ onOtorgar }: { onOtorgar: (c: Consentimiento) => void }) {
 
         {intentado && !completo && (
           <p role="alert" className="mt-4 text-[14px] leading-relaxed text-[#f2a08f]">
-            Todavia falta {falta.join(", ")}. Sin eso completo no se puede grabar.
+            Todavía falta {falta.join(", ")}. Sin eso completo no se puede grabar.
           </p>
         )}
         {!completo && !intentado && (
@@ -175,12 +175,12 @@ function Puerta({ onOtorgar }: { onOtorgar: (c: Consentimiento) => void }) {
 
 function Declaracion() {
   const filas = [
-    ["Que se graba", "El audio del aula durante la clase. Solo audio, nunca video ni imagen."],
-    ["Para que", "Detectar incidencias de convivencia y devolverle a la docente un reporte por alumno y por aula."],
-    ["Donde queda", "En este dispositivo. El audio no se sube a ningun servidor de OpenEd."],
-    ["Cuanto se guarda", "Hasta que se borre. Hay un boton de borrar siempre a la mano y borra el audio junto con la sesion."],
-    ["Quien lo ve", "La docente que graba y quien ella decida. Nadie mas tiene acceso."],
-    ["Que NO se hace", "No se identifica a ningun estudiante por su voz ni se le pone nombre a quien habla."],
+    ["Qué se graba", "El audio del aula durante la clase. Solo audio, nunca video ni imagen."],
+    ["Para qué", "Detectar incidencias de convivencia y devolverle a la docente un reporte por alumno y por aula."],
+    ["Dónde queda", "En este dispositivo. El audio no se sube a ningún servidor de OpenEd."],
+    ["Cuánto se guarda", "Hasta que se borre. Hay un botón de borrar siempre a la mano y borra el audio junto con la sesión."],
+    ["Quién lo ve", "La docente que graba y quien ella decida. Nadie más tiene acceso."],
+    ["Qué NO se hace", "No se identifica a ningún estudiante por su voz ni se le pone nombre a quien habla."],
   ];
 
   return (
@@ -188,7 +188,7 @@ function Declaracion() {
       <h2 className="mb-1 text-[17px] font-semibold">Antes de grabar, esto es lo que pasa</h2>
       <p className="mb-5 text-[14px] leading-relaxed text-[#9fb0b9]">
         En esta aula hay menores de edad. La Ley 29733 trata sus datos como
-        sensibles, asi que esto se declara antes y no despues.
+        sensibles, así que esto se declara antes y no después.
       </p>
       <dl className="flex flex-col gap-3.5">
         {filas.map(([titulo, texto]) => (
@@ -336,7 +336,7 @@ function Consola({
       <section className="rounded-xl border border-[#1f4d42] bg-[#10261f] p-5">
         <h2 className="mb-3 text-[15px] font-semibold text-[#7fd4c0]">Permiso registrado</h2>
         <dl className="grid gap-x-6 gap-y-2 text-[14px] sm:grid-cols-2">
-          <Dato titulo="Institucion" valor={consentimiento.institucion} />
+          <Dato titulo="Institución" valor={consentimiento.institucion} />
           <Dato titulo="Aula" valor={consentimiento.aula} />
           <Dato titulo="Fecha" valor={consentimiento.fecha} />
           <Dato titulo="Autoriza" valor={consentimiento.responsable} />
@@ -361,8 +361,8 @@ function Consola({
         <h2 className="text-[17px] font-semibold">Grabar la clase</h2>
         <p className="mt-2 max-w-[36rem] text-[14px] leading-relaxed text-[#9fb0b9]">
           El audio se corta en segmentos de {largo(intervaloMs)} y cada uno se guarda
-          apenas cierra. Si se cierra la pestana a mitad de la clase, lo grabado
-          hasta ahi no se pierde.
+          apenas cierra. Si se cierra la pestaña a mitad de la clase, lo grabado
+          hasta ahí no se pierde.
         </p>
 
         <div className="mt-5">
@@ -407,7 +407,7 @@ function Consola({
           onClick={borrarTodoYRevocar}
           className="rounded-lg border border-[#5a2f2f] px-5 py-3 text-[15px] font-medium text-[#f2a08f] transition-colors hover:bg-[#2a1717] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f2a08f]"
         >
-          Borrar la sesion y su audio
+          Borrar la sesión y su audio
         </button>
         <p className="mt-3 max-w-[34rem] text-[13px] leading-relaxed text-[#7d8f99]">
           Borra el permiso registrado y todo el audio de este dispositivo. No se
@@ -464,8 +464,8 @@ function Resumen({
 
       {hayHueco && (
         <p className="mt-4 rounded-lg border border-[#5c4a1f] bg-[#2a2413] px-4 py-3 text-[14px] leading-relaxed text-[#e8c98a]">
-          Hay {largo(huecoMs)} sin audio entre el inicio y ahora. La clase corrio mas
-          tiempo del que se alcanzo a grabar, casi siempre porque la pestana quedo en
+          Hay {largo(huecoMs)} sin audio entre el inicio y ahora. La clase corrió más
+          tiempo del que se alcanzó a grabar, casi siempre porque la pestaña quedó en
           segundo plano. El reporte va a usar el audio capturado, no el reloj.
         </p>
       )}

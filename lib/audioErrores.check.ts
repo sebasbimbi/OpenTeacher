@@ -20,7 +20,7 @@ const raro = mensajeDeErrorAudio({ name: "AlgoQueNoConocemos" });
 
 assert.match(permiso, /permiso/i);
 assert.match(ocupado, /ocupado/i);
-assert.match(sinMic, /microfono/i);
+assert.match(sinMic, /micr.fono/i);
 assert.equal(new Set([permiso, ocupado, sinMic, raro]).size, 4, "los mensajes no pueden repetirse");
 
 // Nunca romper con basura: null, undefined, string suelto.

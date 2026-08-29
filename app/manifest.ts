@@ -11,7 +11,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "OpenEd",
     short_name: "OpenEd",
     description:
-      "Contencion inmediata y registro de incidencias de aula para docentes peruanos.",
+      "Contención inmediata y registro de incidencias de aula para docentes peruanos.",
     lang: "es-PE",
     start_url: "/",
     scope: "/",

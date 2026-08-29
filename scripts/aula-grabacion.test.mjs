@@ -25,10 +25,10 @@ const p = await ctx.newPage();
 async function pasarLaPuerta(url) {
   await p.goto(url, { waitUntil: "networkidle" });
   if (await p.locator("text=Permiso registrado").count()) return;
-  await p.getByLabel("Institucion educativa").fill("IE 1234 Jose Carlos Mariategui");
+  await p.getByLabel("Institución educativa").fill("IE 1234 José Carlos Mariátegui");
   await p.getByLabel("Aula").fill("4to B");
-  await p.getByLabel("Quien autoriza").fill("Directora Carmen Rojas");
-  for (const t of [/colegio autorizo/, /familias fueron/, /avisar en voz alta/])
+  await p.getByLabel("Quién autoriza").fill("Directora Carmen Rojas");
+  for (const t of [/colegio autoriz/, /familias fueron/, /avisar en voz alta/])
     await p.locator("label", { hasText: t }).locator('input[type="checkbox"]').check();
   await p.getByRole("button", { name: /Registrar el permiso/ }).click();
   await p.waitForSelector("text=Permiso registrado");
@@ -155,7 +155,7 @@ await p.getByRole("button", { name: /Terminar la clase/ }).click();
 await p.waitForSelector("text=Empezar a grabar la clase", { timeout: 10000 });
 
 // ------------------------------------------ 6. borrar se lleva el audio
-await p.getByRole("button", { name: /Borrar la sesion y su audio/ }).click();
+await p.getByRole("button", { name: /Borrar la sesi.n y su audio/ }).click();
 await p.waitForSelector("text=Registro del permiso", { timeout: 8000 });
 const quedan = await p.evaluate(async () => {
   const db = await new Promise((r, j) => {

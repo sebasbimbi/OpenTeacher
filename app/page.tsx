@@ -226,7 +226,7 @@ function Cabecera() {
 function Aviso() {
   return (
     <p className="mx-auto mb-4 w-fit rounded-lg bg-[#fdf3d3] px-3 py-1.5 text-center text-[12.5px] text-[#5b5344]">
-      Simulador. Mismo agente, sin el numero.
+      Simulador. Mismo agente, sin el número.
     </p>
   );
 }
@@ -386,7 +386,7 @@ function NotaDeVoz({
 
 function Checks() {
   return (
-    <svg viewBox="0 0 20 12" className="h-3.5 w-4 fill-[#53bdeb]" aria-label="leido">
+    <svg viewBox="0 0 20 12" className="h-3.5 w-4 fill-[#53bdeb]" aria-label="leído">
       <path d="M6.6 11.2 1.4 6l1.2-1.2 4 4L14.4.8l1.2 1.2z" />
       <path d="M11.4 11.2 10.2 10l1.2-1.2 1.2 1.2zM19.2 2 12 9.2 10.8 8 18 .8z" />
     </svg>
@@ -395,7 +395,7 @@ function Checks() {
 
 function Escribiendo() {
   return (
-    <li className="flex justify-start" aria-label="OpenEd esta escribiendo">
+    <li className="flex justify-start" aria-label="OpenEd está escribiendo">
       <span className="flex gap-1.5 rounded-xl rounded-tl-none bg-[var(--wa-burbuja-otra)] px-4 py-3.5 shadow-sm">
         {[0, 150, 300].map((retraso) => (
           <span
@@ -441,7 +441,7 @@ function Barra({
           <button
             type="button"
             onClick={onCancelar}
-            aria-label="Cancelar grabacion"
+            aria-label="Cancelar grabación"
             className="grid h-12 w-12 shrink-0 place-items-center rounded-full text-[#8696a0] hover:text-[#54656f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--wa-header)]"
           >
             <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden>
@@ -457,7 +457,7 @@ function Barra({
         <input
           value={borrador}
           onChange={(e) => onBorrador(e.target.value)}
-          placeholder="Cuenteme que paso en el aula"
+          placeholder="Cuénteme qué pasó en el aula"
           aria-label="Mensaje"
           className="min-w-0 flex-1 rounded-full bg-white px-4 py-3 text-[16px] text-[var(--wa-texto)] outline-none placeholder:text-[#8696a0] focus:ring-2 focus:ring-[var(--wa-accion)]"
         />

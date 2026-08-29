@@ -92,7 +92,7 @@ export function useGrabadoraLarga({
           ultima.hastaEn = Date.now();
           if (ultima.hastaEn - ultima.desdeEn > HUECO_MINIMO_MS) {
             setAviso(
-              "La pestana estuvo en segundo plano. El navegador puede haber pausado la grabacion en ese tramo; abajo se ve cuanto audio se capturo de verdad.",
+              "La pestaña estuvo en segundo plano. El navegador puede haber pausado la grabación en ese tramo; abajo se ve cuánto audio se capturó de verdad.",
             );
           }
         }
@@ -119,7 +119,7 @@ export function useGrabadoraLarga({
     };
 
     rec.onerror = () => {
-      setError("Se corto la grabacion del aula. Lo grabado hasta ahora esta guardado.");
+      setError("Se cortó la grabación del aula. Lo grabado hasta ahora está guardado.");
       detenerRef.current = true;
     };
 
@@ -149,7 +149,7 @@ export function useGrabadoraLarga({
       // navegador estrangulo el timer mientras la pestana estaba oculta.
       if (duracionMs > intervaloMs * TOLERANCIA_ESTRANGULAMIENTO) {
         setAviso(
-          "El navegador pauso los temporizadores en algun momento. La duracion real capturada es la que se muestra abajo.",
+          "El navegador pausó los temporizadores en algún momento. La duración real capturada es la que se muestra abajo.",
         );
       }
 
@@ -177,7 +177,7 @@ export function useGrabadoraLarga({
 
       if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
         setError(
-          "Este navegador no permite grabar aqui. Necesita una conexion segura (https).",
+          "Este navegador no permite grabar aquí. Necesita una conexión segura (https).",
         );
         return null;
       }
@@ -195,7 +195,7 @@ export function useGrabadoraLarga({
       stream.getAudioTracks().forEach((pista) => {
         pista.onended = () => {
           setError(
-            "El microfono se desconecto y la grabacion se detuvo. Lo capturado hasta ese momento esta guardado.",
+            "El micrófono se desconectó y la grabación se detuvo. Lo capturado hasta ese momento está guardado.",
           );
           detenerRef.current = true;
           if (recorderRef.current?.state === "recording") recorderRef.current.stop();

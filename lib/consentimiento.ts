@@ -49,11 +49,11 @@ export function consentimientoCompleto(c: Consentimiento): boolean {
 /** Que falta, en palabras, para poder decirselo al docente. */
 export function faltantes(c: Consentimiento): string[] {
   const falta: string[] = [];
-  if (!c.institucion.trim()) falta.push("la institucion educativa");
+  if (!c.institucion.trim()) falta.push("la institución educativa");
   if (!c.aula.trim()) falta.push("el aula");
   if (!c.fecha.trim()) falta.push("la fecha");
-  if (!c.responsable.trim()) falta.push("quien autoriza");
-  if (!c.colegio) falta.push("la autorizacion del colegio");
+  if (!c.responsable.trim()) falta.push("quién autoriza");
+  if (!c.colegio) falta.push("la autorización del colegio");
   if (!c.familias) falta.push("el consentimiento de las familias");
   if (!c.estudiantes) falta.push("el aviso a los estudiantes");
   return falta;
