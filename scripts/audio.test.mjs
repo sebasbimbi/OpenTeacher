@@ -57,7 +57,11 @@ async function caminoFeliz(navegador) {
 
     await p.waitForSelector("text=Transcribiendo...", { timeout: 5000 });
     await p.waitForSelector("text=/dos chicos de cuarto/", { timeout: 15000 });
-    await p.waitForSelector("text=/primero usted/", { timeout: 10000 });
+    await p.waitForFunction(
+    () => document.querySelectorAll('ol > li:not([aria-label*="escribiendo"])').length >= 3,
+    null,
+    { timeout: 45000 },
+  );
 
     const duracion = await p
       .locator('button[aria-label="Reproducir nota de voz"]')
@@ -104,7 +108,11 @@ async function permisoDenegado(navegador) {
     await p.getByLabel("Mensaje").fill("Escribo porque no pude grabar");
     await p.getByRole("button", { name: "Enviar mensaje" }).click();
     await p.waitForSelector("text=Escribo porque no pude grabar", { timeout: 5000 });
-    await p.waitForSelector("text=/primero usted/", { timeout: 10000 });
+    await p.waitForFunction(
+    () => document.querySelectorAll('ol > li:not([aria-label*="escribiendo"])').length >= 3,
+    null,
+    { timeout: 45000 },
+  );
     ok(nombre, `mensaje mostrado y chat sigue usable`);
   } catch (e) {
     fail(nombre, e.message);

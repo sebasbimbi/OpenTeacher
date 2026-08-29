@@ -69,7 +69,11 @@ await mic.tap();
 
 await p.waitForSelector("text=Transcribiendo...", { timeout: 8000 });
 await p.waitForSelector("text=/dos chicos de cuarto/", { timeout: 20000 });
-await p.waitForSelector("text=/primero usted/", { timeout: 12000 });
+await p.waitForFunction(
+    () => document.querySelectorAll('ol > li:not([aria-label*="escribiendo"])').length >= 3,
+    null,
+    { timeout: 45000 },
+  );
 
 const audio = await p.evaluate(() => {
   const a = [...document.querySelectorAll("audio")].pop();

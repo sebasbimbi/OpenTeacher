@@ -23,6 +23,7 @@ import {
 const DELAY_RESPUESTA_MS = 1100;
 const BARRAS = [9, 15, 22, 12, 26, 18, 10, 20, 14, 24, 11, 17, 8, 21, 13];
 
+
 export default function Page() {
   const [mensajes, setMensajes] = useState<Mensaje[]>(CONVERSACION_DEMO);
   const [borrador, setBorrador] = useState("");
@@ -30,6 +31,10 @@ export default function Page() {
   const finRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const urlsRef = useRef<string[]>([]);
+  // Arranca con el saludo ya dentro: es parte de la conversacion que ve el agente.
+  const historialRef = useRef<{ rol: "docente" | "opened"; texto: string }[]>(
+    CONVERSACION_DEMO.map((m) => ({ rol: m.de, texto: m.texto })),
+  );
 
   const grabadora = useGrabadora();
 
@@ -49,6 +54,11 @@ export default function Page() {
   const agregar = useCallback((mensaje: Omit<Mensaje, "id" | "hora">) => {
     const id = `m-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
     if (mensaje.url) urlsRef.current.push(mensaje.url);
+    // Una nota de voz sin transcribir todavia no aporta texto al agente: entra
+    // al historial recien cuando llega su transcripcion.
+    if (!mensaje.audio && mensaje.texto.trim()) {
+      historialRef.current.push({ rol: mensaje.de, texto: mensaje.texto });
+    }
     setMensajes((previos) => [...previos, { ...mensaje, id, hora: horaAhora() }]);
     return id;
   }, []);
@@ -59,13 +69,49 @@ export default function Page() {
     );
   }, []);
 
-  /** Eco local. Cuando llegue el brief, esto se cambia por la llamada al agente. */
-  const responder = useCallback(() => {
+  const esperar = (ms: number) =>
+    new Promise<void>((r) => {
+      timerRef.current = setTimeout(r, ms);
+    });
+
+  /**
+   * Llama al agente y pinta DOS burbujas, como un colega que manda dos
+   * mensajes: primero la contencion, despues la accion o la ruta.
+   *
+   * Nunca deja el chat mudo. Si la ruta falla, el servidor ya devuelve el
+   * fixture; si falla la red entera, se pinta el fixture desde aca.
+   */
+  const responder = useCallback(async () => {
     setEscribiendo(true);
-    timerRef.current = setTimeout(() => {
+    try {
+      const respuesta = await fetch("/api/responder", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ historial: historialRef.current }),
+      });
+      const datos = (await respuesta.json().catch(() => null)) as {
+        bloque_1?: string;
+        bloque_2?: string;
+      } | null;
+
+      const bloque1 = datos?.bloque_1?.trim() || RESPUESTA_ECO.split("\n\n")[0];
+      const bloque2 = datos?.bloque_2?.trim() ?? "";
+
+      setEscribiendo(false);
+      agregar({ de: "opened", texto: bloque1 });
+
+      if (bloque2) {
+        // La pausa entre burbujas es lo que hace que se lea como una persona
+        // y no como un muro de texto.
+        setEscribiendo(true);
+        await esperar(DELAY_RESPUESTA_MS);
+        setEscribiendo(false);
+        agregar({ de: "opened", texto: bloque2 });
+      }
+    } catch {
       setEscribiendo(false);
       agregar({ de: "opened", texto: RESPUESTA_ECO });
-    }, DELAY_RESPUESTA_MS);
+    }
   }, [agregar]);
 
   function enviarTexto() {
@@ -73,7 +119,7 @@ export default function Page() {
     if (!texto) return;
     setBorrador("");
     agregar({ de: "docente", texto });
-    responder();
+    void responder();
   }
 
   async function transcribir(id: string, grabacion: Grabacion) {
@@ -92,14 +138,17 @@ export default function Page() {
         grabadora.setError(
           datos?.error ?? "No pude transcribir el audio. Escribeme el mensaje.",
         );
+        void responder();
         return;
       }
 
       actualizar(id, { transcripcion: datos.texto });
-      responder();
+      historialRef.current.push({ rol: "docente", texto: datos.texto });
+      void responder();
     } catch {
       actualizar(id, { transcribiendo: false });
       grabadora.setError("No pude transcribir el audio. Escribeme el mensaje.");
+      void responder();
     }
   }
 
