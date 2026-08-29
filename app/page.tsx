@@ -177,7 +177,7 @@ function Cabecera() {
 function Aviso() {
   return (
     <p className="mx-auto mb-4 w-fit rounded-lg bg-[#fdf3d3] px-3 py-1.5 text-center text-[12.5px] text-[#5b5344]">
-      Demo local. Ningun mensaje sale de este navegador.
+      Simulador. Mismo agente, sin el numero.
     </p>
   );
 }
