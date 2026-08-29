@@ -9,6 +9,7 @@
  * Se puede borrar entero despues del pitch sin tocar nada mas.
  */
 
+import BurbujaCuaderno from "@/components/CuadernoOverlay";
 import FichaNorma from "@/components/FichaNorma";
 import { NORMA } from "@/lib/norma";
 
@@ -20,6 +21,9 @@ export default function Page() {
   return (
     <main className="flex min-h-dvh justify-center bg-[#0b141a]">
       <div className="flex w-full max-w-[440px] flex-col gap-4 bg-[var(--wa-fondo)] px-3 py-4">
+        {/* La burbuja tipo documento que abre el cuaderno, como se monta en el chat. */}
+        <BurbujaCuaderno />
+
         {CASOS.map((clave) => (
           <FichaNorma key={clave} clave={clave} />
         ))}
