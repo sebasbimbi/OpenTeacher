@@ -72,7 +72,7 @@ Corre en un directorio de build aparte (`.next-prod`), asi que no le pisa el `.n
 
 ## Instalar en el telefono
 
-OpenTeacher es una PWA: se instala desde el navegador, sin app nativa y sin tienda. Abre https://opened-phi.vercel.app y:
+OpenTeacher es una PWA: se instala desde el navegador, sin app nativa y sin tienda. Abre https://openteacher-peru.vercel.app y:
 
 - **Android (Chrome):** menu de tres puntos, "Instalar aplicacion" o "Anadir a pantalla principal".
 - **iPhone (Safari):** boton de compartir, "Anadir a pantalla de inicio".

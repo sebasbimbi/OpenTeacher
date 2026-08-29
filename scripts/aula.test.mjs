@@ -2,7 +2,7 @@
  * Verifica la PUERTA DE CONSENTIMIENTO de /aula.
  *
  *   npm run test:aula                              # contra localhost:3001
- *   URL_APP=https://opened-phi.vercel.app/ npm run test:aula
+ *   URL_APP=https://openteacher-peru.vercel.app/ npm run test:aula
  *
  * Criterio de listo: no debe existir NINGUNA forma de llegar a grabar sin
  * pasar por la puerta. Se comprueba en el DOM, no a ojo: un boton oculto

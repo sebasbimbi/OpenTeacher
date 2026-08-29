@@ -2,7 +2,7 @@
  * Verifica el CRITERIO del agente contra la norma, no su redaccion.
  *
  *   npm run test:criterio
- *   URL_APP=https://opened-phi.vercel.app/ npm run test:criterio
+ *   URL_APP=https://openteacher-peru.vercel.app/ npm run test:criterio
  *
  * Son los cuatro comportamientos que un jurado con educadoras va a sondear.
  * Se salta si la ruta corre en mock: sin llave no hay criterio que probar.

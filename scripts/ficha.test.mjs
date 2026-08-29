@@ -2,7 +2,7 @@
  * Verifica los tres estados de FichaNorma EN EL DOM, no a ojo.
  *
  *   npm run test:ficha                             # contra localhost:3001
- *   URL_APP=https://opened-phi.vercel.app/ npm run test:ficha
+ *   URL_APP=https://openteacher-peru.vercel.app/ npm run test:ficha
  *
  * Corre contra /ficha-prueba, el banco de prueba, porque app/page.tsx es del
  * otro carril. Lo que se defiende aca es lo que nos hunde si falla:

@@ -1,7 +1,7 @@
 /**
  * Verifica la PWA en viewport movil, por defecto CONTRA PRODUCCION.
  *
- *   npm run test:movil                              # contra opened-phi.vercel.app
+ *   npm run test:movil                              # contra openteacher-peru.vercel.app
  *   URL_APP=http://localhost:3001/ npm run test:movil
  *
  * Apunta a produccion a proposito: getUserMedia exige contexto seguro y
@@ -15,7 +15,7 @@
 import { chromium, devices } from "playwright";
 import assert from "node:assert/strict";
 
-const URL_APP = process.env.URL_APP ?? "https://opened-phi.vercel.app/";
+const URL_APP = process.env.URL_APP ?? "https://openteacher-peru.vercel.app/";
 const origin = new URL(URL_APP).origin;
 const res = [];
 

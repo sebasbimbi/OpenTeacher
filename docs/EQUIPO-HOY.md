@@ -135,7 +135,7 @@ jurado.
 ### B6 · Mariale, 20 min (16:31 - 16:51)
 
 **Lienzo y formatos del evento**, mientras el codigo sigue. Con el link publico
-(https://opened-phi.vercel.app) y el link de GitHub que Sebastian crea a las 15:06.
+(https://openteacher-peru.vercel.app) y el link de GitHub que Sebastian crea a las 15:06.
 
 **El indicador de impacto es UNO solo y ya esta escrito:**
 
@@ -152,7 +152,7 @@ y trae su linea base.
 
 | Hora | Que | Listo cuando |
 |---|---|---|
-| 14:56 | Las dos API keys en Vercel, Production y Preview, y redeploy. **No** setear `OPENED_MOCK_MODE` | `curl -X POST -F x=1 https://opened-phi.vercel.app/api/transcribir` devuelve **400**, no `mock:true` |
+| 14:56 | Las dos API keys en Vercel, Production y Preview, y redeploy. **No** setear `OPENED_MOCK_MODE` | `curl -X POST -F x=1 https://openteacher-peru.vercel.app/api/transcribir` devuelve **400**, no `mock:true` |
 | 15:01 | Crear el doc de la semilla con las columnas y **tres filas llenas**, y pasarselo a las docentes | Ellas ya estan escribiendo |
 | 15:06 | `gh repo create` publico, push, y reescribir el bloque "Estado" del README en el mismo push | El link abre y `app/api/whatsapp/route.ts` se ve. **Hoy no hay remoto: todo el proyecto vive en un disco** |
 | 15:20 | Compuerta del audio con Nicolas | Ver abajo |

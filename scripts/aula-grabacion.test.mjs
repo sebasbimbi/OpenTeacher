@@ -2,7 +2,7 @@
  * Verifica la grabacion larga de /aula: rotacion, persistencia y honestidad.
  *
  *   npm run test:grabacion
- *   URL_APP=https://opened-phi.vercel.app/ npm run test:grabacion
+ *   URL_APP=https://openteacher-peru.vercel.app/ npm run test:grabacion
  *
  * Usa el gancho ?seg=N para rotar cada N segundos en vez de cada 5 minutos.
  * Una "clase de 12 minutos con segmentos de 5" se prueba en 12 segundos con

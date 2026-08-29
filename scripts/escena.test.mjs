@@ -2,7 +2,7 @@
  * EL CASO QUE SE PROYECTA, de punta a punta.
  *
  *   npm run test:escena
- *   URL_APP=https://opened-phi.vercel.app/ npm run test:escena
+ *   URL_APP=https://openteacher-peru.vercel.app/ npm run test:escena
  *
  * Todo lo demas puede fallar y sobrevivimos. Este camino no.
  */

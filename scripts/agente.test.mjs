@@ -3,7 +3,7 @@
  * NUNCA se quede mudo.
  *
  *   npm run test:agente
- *   URL_APP=https://opened-phi.vercel.app/ npm run test:agente
+ *   URL_APP=https://openteacher-peru.vercel.app/ npm run test:agente
  */
 
 import { chromium } from "playwright";

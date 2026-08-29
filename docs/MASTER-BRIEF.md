@@ -65,7 +65,7 @@ verificable, no es opinion, y es exactamente lo que dijeron Carmen y Silvia. Ver
 
 **HOY NO SE USA UN NUMERO REAL DE WHATSAPP.** Ni Meta Cloud API, ni Twilio, ni webhook en
 vivo, ni numero de prueba. La demo corre integra sobre el simulador web ya desplegado en
-https://opened-phi.vercel.app. Decidido por Sebastian, cerrado, no se rediscute.
+https://openteacher-peru.vercel.app. Decidido por Sebastian, cerrado, no se rediscute.
 
 Tres consecuencias que hay que asumir de frente:
 
@@ -104,11 +104,11 @@ Verificado a las 14:50 en `/Users/sebasbimbi/sebastian-bimbi/projects/bimbi-digi
 **Y lo que verifique en produccion a las 14:52:**
 
 ```
-POST https://opened-phi.vercel.app/api/transcribir  (sin audio)
+POST https://openteacher-peru.vercel.app/api/transcribir  (sin audio)
 -> HTTP 200 en 4.48 s
 -> {"texto":"Profe, disculpe. Hoy en el recreo dos chicos de cuarto...","mock":true}
-GET  https://opened-phi.vercel.app/    -> HTTP 200 en 0.29 s
-GET  https://opened-phi.vercel.app/aula -> HTTP 200
+GET  https://openteacher-peru.vercel.app/    -> HTTP 200 en 0.29 s
+GET  https://openteacher-peru.vercel.app/aula -> HTTP 200
 ```
 
 **Produccion esta fingiendo en este momento.** Transcribe cualquier cosa, incluso 4 bytes de
@@ -173,7 +173,7 @@ Tres carriles en paralelo. Nadie espera a nadie.
 
 | Hora | Min | Que | Listo cuando |
 |---|---|---|---|
-| 14:56 | 10 | Vercel: `ANTHROPIC_API_KEY` y `OPENAI_API_KEY` en Production y Preview. Redeploy. NO setear `OPENED_MOCK_MODE` | `curl -X POST -F x=1 https://opened-phi.vercel.app/api/transcribir` devuelve **400 "No llego ningun audio"**. Ese 400 es el unico recibo de que produccion dejo de fingir |
+| 14:56 | 10 | Vercel: `ANTHROPIC_API_KEY` y `OPENAI_API_KEY` en Production y Preview. Redeploy. NO setear `OPENED_MOCK_MODE` | `curl -X POST -F x=1 https://openteacher-peru.vercel.app/api/transcribir` devuelve **400 "No llego ningun audio"**. Ese 400 es el unico recibo de que produccion dejo de fingir |
 | 15:06 | 10 | `gh repo create` publico y push. Reescribir el bloque "Estado" del README en el mismo push | El link de GitHub abre y `app/api/whatsapp/route.ts` se ve desde el navegador. El README ya no dice "el brief todavia no llega" |
 | 15:20 | 15 | **Compuerta del audio.** Grabar 3 clips de 15 s desde la posicion real del laptop, contra produccion, y cronometrar | Los 3 vuelven con el texto correcto en menos de 6 s. **Si no: borrar `OPENAI_API_KEY` de Vercel** y quedarse con la transcripcion en mock, que sale exacta siempre |
 | 15:40 | 10 | Pre-vuelo del laptop (ver §7) | Checklist firmada |

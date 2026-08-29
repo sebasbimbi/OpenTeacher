@@ -2,7 +2,7 @@
  * Prueba de la ruta de audio en un navegador real.
  *
  *   npm run test:audio                                    # contra localhost:3001
- *   URL_APP=https://opened-phi.vercel.app/ npm run test:audio   # contra produccion
+ *   URL_APP=https://openteacher-peru.vercel.app/ npm run test:audio   # contra produccion
  *
  * Corre en Chromium con dispositivo de audio falso, asi que no necesita
  * microfono ni permisos del sistema. Cubre los tres modos de falla que

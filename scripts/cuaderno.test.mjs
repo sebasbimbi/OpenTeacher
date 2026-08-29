@@ -2,7 +2,7 @@
  * Verifica el OVERLAY del cuaderno en el DOM.
  *
  *   npm run test:cuaderno
- *   URL_APP=https://opened-phi.vercel.app/ npm run test:cuaderno
+ *   URL_APP=https://openteacher-peru.vercel.app/ npm run test:cuaderno
  *
  * Lo que se defiende:
  *  - la burbuja abre el overlay SIN cambiar de ruta (nada de barra de URL

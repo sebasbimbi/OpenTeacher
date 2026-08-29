@@ -206,7 +206,7 @@ completo en `PITCH.md` §3.
 Antes de subir al escenario, **exactamente** dos pestanas, en este orden, en el perfil de
 Chrome de siempre (nunca incognito):
 
-1. **Pestana 1: `https://opened-phi.vercel.app`**, chat en blanco, ya precalentada con **un
+1. **Pestana 1: `https://openteacher-peru.vercel.app`**, chat en blanco, ya precalentada con **un
    mensaje real enviado y un audio real grabado**, y despues recargada. Precalentar la pagina
    **no** calienta la funcion: hay que haber mandado un mensaje por cada ruta.
 2. **Pestana 2: `http://localhost:3000`** con el dev server corriendo con
