@@ -1,5 +1,42 @@
 # Pre-vuelo de la laptop
 
+## ANTES DE SUBIR: como verificar sin asustarse
+
+Hoy, tres veces, algo salio ROJO sin que el producto estuviera roto. Si ves un rojo
+diez minutos antes del pitch, es mas probable que sea el metodo que el producto.
+No arregles nada. Comprueba primero cual de estas tres es.
+
+**1. Los defaults de los scripts apuntan a un puerto muerto.**
+Los tests usan `localhost:3001` por defecto, que era el dev server. Esta APAGADO a
+proposito (pinta el overlay de Build Error sobre la pagina, y en proyector eso nos
+hunde). Un `npm run test:escena` a secas da error de CONEXION, no un test fallido.
+Corre siempre con la URL explicita:
+
+```
+URL_APP=http://localhost:3100/ npm run test:escena     # agente real
+URL_APP=http://localhost:3100/ npm run test:criterio   # criterio normativo
+URL_APP=http://localhost:3101/ npm run test:escena     # pestana de respaldo
+```
+
+**2. Las suites encadenadas se pisan contra la API.** Correrlas seguidas puede dar
+0/5. Corre UNA a la vez.
+
+**3. `next start` sirve el build congelado, no el codigo.** Despues de cualquier
+commit hay que volver a construir, o seguiras viendo la version anterior y
+concluiras que algo se rompio cuando ya estaba arreglado.
+
+**Mapa de puertos de la laptop:**
+
+```
+3000  OTRO PROYECTO (Telacanto). No es la demo. Nadie teclee 3000.
+3001  APAGADO a proposito.
+3100  OpenTeacher REAL      <- la demo
+3101  OpenTeacher SIMULADO  <- el respaldo, cambiar aqui si algo falla
+```
+
+Web publica, con el agente real: https://openteacher-peru.vercel.app
+
+
 La demo corre **desde la laptop**, no desde Vercel.
 
 ## Arranque, en este orden
