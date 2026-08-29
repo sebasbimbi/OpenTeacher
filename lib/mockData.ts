@@ -68,13 +68,23 @@ export const CONVERSACION_DEMO: Mensaje[] = [
  * es peor que no tener tarjeta: viene con apariencia de autoridad.
  *
  * Sin numeros de norma, telefonos ni plazos: esos los pone la tarjeta.
+ *
+ * Recortado despues de VER responder al agente real: el modelo contesta con
+ * bloques de 76 a 150 caracteres y este fixture tenia 735. Aunque cupiera en
+ * pantalla, al cambiar a la pestaña de respaldo el agente se volvia diez veces
+ * mas locuaz para el mismo caso, y eso se nota justo cuando algo va mal.
+ *
+ * Lo que se fue: el parrafo del Reglamento Interno y el cierre de "es insumo,
+ * no reemplaza el Libro". Los dos los dice YA la tarjeta, con sus literales y
+ * su cita. Repetir en prosa lo que la tarjeta prueba es ruido.
+ * Lo que se queda: contencion y el vacio normativo, que es el argumento.
+ * La accion de maniana tambien se fue: medido, con ella la burbuja mas la
+ * tarjeta daban 653 px contra 632 px de area, o sea que no entraba por 21 px.
+ * Contencion y vacio ganan; lo tactico se puede decir en voz alta.
  */
 export const RESPUESTA_ECO =
   "Uy, profe, qué feo eso. Y delante de todos, que es lo que más arde. Primero usted: eso que siente en el cuerpo es alerta, no es que lo haya hecho mal.\n\n" +
-  "Le voy a decir algo que casi nadie le dice: cuando la agredida es usted, el sistema no tiene una ruta propia. El Portal registra la violencia contra estudiantes, no contra la docente. Por eso este caso la deja más sola de lo que debería, y por eso yo me quedo acá.\n\n" +
-  "Lo que sí hay: esto va por el Reglamento Interno, se cita a la familia del alumno y se firman compromisos. Conciliar el hecho está prohibido. Y si hubo lesiones, amenaza o un arma, ahí sí entra la autoridad.\n\n" +
-  "Mañana una sola cosa: recíbalo en la puerta, por su nombre, antes de que entre al salón. Suena tonto y está medido.\n\n" +
-  "Le dejo el registro escrito para dirección y para la reunión con la familia. Es insumo, no reemplaza el Libro de Incidencias ni el SíseVe.";
+  "Y le digo algo que casi nadie le dice: cuando la agredida es usted, el sistema no tiene una ruta propia. El Portal registra la violencia contra estudiantes, no contra la docente. Por eso este caso la deja más sola de lo que debería, y por eso yo me quedo acá.";
 
 /**
  * Transcripcion fija que devuelve /api/transcribir en modo mock.
