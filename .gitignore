@@ -46,3 +46,6 @@ next-env.d.ts
 # estado local de agentes (Claude Code / Codex)
 .claude/
 .codex/
+
+# build de verificacion, aparte del dev server
+.next-build/

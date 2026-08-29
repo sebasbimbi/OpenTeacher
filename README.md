@@ -32,8 +32,11 @@ npm run check        # helpers de audio, sin dependencias, corre en un segundo
 npm run test:audio   # ruta de audio en Chromium real: camino feliz + los 3 modos de falla
 ```
 
-`test:audio` corre contra localhost por defecto. Para apuntar a produccion:
-`URL_APP=https://opened-phi.vercel.app/ npm run test:audio`
+```bash
+npm run test:movil   # PWA en 390px CONTRA PRODUCCION: que el microfono grabe de verdad sobre https
+```
+
+`test:audio` corre contra localhost por defecto y `test:movil` contra produccion. Ambos aceptan `URL_APP=` para apuntar al otro lado.
 
 La grabacion necesita https o localhost (requisito del navegador, no del proyecto).
 
