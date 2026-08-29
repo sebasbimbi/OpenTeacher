@@ -35,12 +35,14 @@ export function incidenciaMock(): Incidencia {
     bloque_1: partes[0],
     bloque_2: partes.slice(1).join("\n\n"),
     momento: "en_frio",
-    categoria: "agresion_entre_pares",
+    categoria: "agresion_hacia_docente",
     es_violencia: true,
     requiere_derivacion: false,
     resumen:
-      "Dos estudiantes de cuarto se agredieron físicamente en el recreo. La docente los separó y los derivó a dirección. Según uno de ellos, no es la primera vez.",
-    clave_norma: "protocolo_01",
+      "Un estudiante de segundo empujó y gritó a la docente delante del salón al recibir un llamado de atención. Según la docente, la conducta se ha repetido.",
+    // El caso del pitch. Si el fixture trae otra clave, en producción sin
+    // llave la tarjeta tipifica mal el relato que está en pantalla.
+    clave_norma: "docente_agredido",
     alumno_iniciales: "",
   };
 }

@@ -59,27 +59,22 @@ export const CONVERSACION_DEMO: Mensaje[] = [
 ];
 
 /**
- * Respuesta de contencion del caso de la demo. Es el Plan B: si la red falla
- * en escena, esto es lo que se proyecta, y tiene que aguantar la lectura de
- * una educadora igual que la respuesta real del agente.
+ * Respuesta de contencion DEL CASO DEL PITCH: la agredida es la docente.
  *
- * Sin numeros de norma, sin telefonos, sin plazos: esos los pone el codigo
- * desde la tarjeta, nunca el texto.
+ * Es el Plan B, y tiene que ser el MISMO caso que el resto de la demo. Antes
+ * era el de una pelea entre alumnos, y eso significaba que en produccion sin
+ * llave el relato de la docente agredida recibia la contencion de otro caso y
+ * la tarjeta de otro protocolo. Una tarjeta con fuente y folio tipificando mal
+ * es peor que no tener tarjeta: viene con apariencia de autoridad.
+ *
+ * Sin numeros de norma, telefonos ni plazos: esos los pone la tarjeta.
  */
 export const RESPUESTA_ECO =
-  "Miss, primero usted. Los separó y los mandó a dirección, y eso estuvo bien hecho. Quedarse mal el resto del día no es que lo hizo mal: es que aguantó sola algo que asusta.\n\n" +
-  "Dejémoslo escrito ahora que está fresco. Fue agresión entre compañeros, y ahí la regla es atenderlos POR SEPARADO. Nunca juntarlos a que se pidan disculpas en el momento, ni preguntarles delante del salón.\n\n" +
-  "Lo que más pesa de lo que me contó es el \"ya van varias veces\". Si se repite, deja de ser una pelea y pasa a ser un patrón, y un patrón sí se puede trabajar.\n\n" +
-  "Mañana una sola cosa: recíbalos en la puerta, por su nombre, antes de que entren al salón. Suena tonto y está medido.\n\n" +
-  "Le dejo el registro escrito para dirección y para la reunión con el padre. Es insumo, no reemplaza el Libro de Incidencias ni el SíseVe.";
-
-export function horaAhora(): string {
-  return new Date().toLocaleTimeString("es-PE", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-}
+  "Uy, profe, qué feo eso. Y delante de todos, que es lo que más arde. Primero usted: eso que siente en el cuerpo es alerta, no es que lo haya hecho mal.\n\n" +
+  "Le voy a decir algo que casi nadie le dice: cuando la agredida es usted, el sistema no tiene una ruta propia. El Portal registra la violencia contra estudiantes, no contra la docente. Por eso este caso la deja más sola de lo que debería, y por eso yo me quedo acá.\n\n" +
+  "Lo que sí hay: esto va por el Reglamento Interno, se cita a la familia del alumno y se firman compromisos. Conciliar el hecho está prohibido. Y si hubo lesiones, amenaza o un arma, ahí sí entra la autoridad.\n\n" +
+  "Mañana una sola cosa: recíbalo en la puerta, por su nombre, antes de que entre al salón. Suena tonto y está medido.\n\n" +
+  "Le dejo el registro escrito para dirección y para la reunión con la familia. Es insumo, no reemplaza el Libro de Incidencias ni el SíseVe.";
 
 /**
  * Transcripcion fija que devuelve /api/transcribir en modo mock.
@@ -90,4 +85,12 @@ export function horaAhora(): string {
  * cuanto el equipo entregue el clip.
  */
 export const TRANSCRIPCION_MOCK =
-  "Profe, disculpe. Hoy en el recreo dos chicos de cuarto se agarraron a golpes y cuando los separé uno me dijo que ya van varias veces. No supe qué hacer, los mandé a dirección y me quedé mal el resto del día.";
+  "Profe, disculpe que le escriba así. Hoy un alumno de segundo me empujó y me gritó delante de todo el salón cuando le llamé la atención. Me quedé temblando, no supe qué hacer y seguí la clase como si nada. Y ya van varias veces con él.";
+
+export function horaAhora(): string {
+  return new Date().toLocaleTimeString("es-PE", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+}
