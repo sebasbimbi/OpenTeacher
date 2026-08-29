@@ -10,7 +10,7 @@
     "check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/audioErrores.check.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/consentimiento.check.ts",
     "test:audio": "node scripts/audio.test.mjs",
     "test:movil": "node scripts/movil.test.mjs",
-    "build:check": "next build --distDir .next-build",
+    "build:check": "NEXT_DIST_DIR=.next-build next build",
     "test:aula": "node scripts/aula.test.mjs"
   },
   "dependencies": {
