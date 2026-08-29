@@ -6,11 +6,15 @@ Todo en espanol peruano. Hackathon AIdea, 29 de agosto.
 
 ## Estado
 
-Scaffold listo. El brief de producto (arquitectura de agentes, prompts, esquema de datos, contexto MINEDU) todavia no llega, asi que la logica de producto esta marcada como PENDIENTE en `lib/prompts.ts` y `lib/agents.ts`. Lo que si esta en pie:
+Hoy NO se usa un numero real de WhatsApp. El simulador web es el producto y lo unico que se demuestra.
 
-- Simulador de chat estilo WhatsApp en `/`, corriendo 100% local. Es el Plan B de la demo.
+El brief de producto (arquitectura de agentes, prompts, esquema de datos, contexto MINEDU) todavia no llega, asi que la logica de los agentes esta marcada como PENDIENTE en `lib/prompts.ts` y `lib/agents.ts`. Lo que si esta en pie:
+
+- Simulador de chat estilo WhatsApp en `/`, corriendo 100% local.
+- Grabacion de audio real en el navegador con MediaRecorder, con duracion medida y reproduccion.
+- Transcripcion en `/api/transcribir` con Whisper, y modo mock cuando no hay llave.
 - Wrapper del Anthropic SDK con modo mock automatico.
-- Webhook de WhatsApp Cloud API con el handshake de verificacion de Meta.
+- Webhook de WhatsApp Cloud API con el handshake de verificacion de Meta. Congelado, sirve de evidencia.
 - Deploy en Vercel.
 
 ## Correr en local
@@ -21,14 +25,23 @@ cp .env.example .env.local   # rellenar las llaves; .env.local nunca se commitea
 npm run dev
 ```
 
-Abre http://localhost:3000. Sin `ANTHROPIC_API_KEY` el proyecto corre en modo mock y no toca la red.
+Abre http://localhost:3000. Sin `ANTHROPIC_API_KEY` ni `OPENAI_API_KEY` el proyecto corre en modo mock y no toca la red.
+
+```bash
+npm run check   # check de los helpers de audio
+```
+
+La grabacion necesita https o localhost (requisito del navegador, no del proyecto).
 
 ## Estructura
 
 | Ruta | Que hace |
 |---|---|
 | `app/page.tsx` | Simulador de chat de WhatsApp. Plan B de la demo. |
-| `app/api/whatsapp/route.ts` | Webhook de WhatsApp Cloud API. GET verifica, POST recibe. |
+| `app/api/transcribir/route.ts` | Transcribe la nota de voz con Whisper. Modo mock sin llave. |
+| `lib/grabadora.ts` | Hook de MediaRecorder. Graba, mide, y maneja los modos de falla. |
+| `lib/audioErrores.ts` | Helpers puros de la ruta de audio. Cubiertos por `npm run check`. |
+| `app/api/whatsapp/route.ts` | Webhook de WhatsApp Cloud API. Congelado, hoy no se usa. |
 | `lib/claude.ts` | Wrapper del Anthropic SDK. Modo real y modo mock. |
 | `lib/prompts.ts` | Prompts de los agentes, separados del codigo. PENDIENTE. |
 | `lib/agents.ts` | Orquestacion de los agentes. PENDIENTE. |

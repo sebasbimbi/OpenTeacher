@@ -1,15 +1,18 @@
 "use client";
 
 /**
- * Simulador de chat de WhatsApp: el PLAN B de la demo de OpenEd.
+ * Simulador de chat de WhatsApp. Es EL producto de la demo: lo unico que
+ * el jurado ve. No hay numero real de WhatsApp hoy.
  *
- * Corre 100% local con lib/mockData.ts. No llama a ninguna API.
- * Si el WhatsApp real se cae en el escenario, la demo sigue aqui.
+ * El texto corre 100% local con lib/mockData.ts. El audio se graba en el
+ * navegador con MediaRecorder y se transcribe en /api/transcribir, que
+ * tambien tiene modo mock. Nada del flujo depende de una llamada en vivo.
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { extensionDeMime, formatearDuracion } from "@/lib/audioErrores";
+import { useGrabadora, type Grabacion } from "@/lib/grabadora";
 import {
-  AUDIO_ECO,
   CONTACTO,
   CONVERSACION_DEMO,
   RESPUESTA_ECO,
@@ -18,6 +21,7 @@ import {
 } from "@/lib/mockData";
 
 const DELAY_RESPUESTA_MS = 1100;
+const BARRAS = [9, 15, 22, 12, 26, 18, 10, 20, 14, 24, 11, 17, 8, 21, 13];
 
 export default function Page() {
   const [mensajes, setMensajes] = useState<Mensaje[]>(CONVERSACION_DEMO);
@@ -25,30 +29,44 @@ export default function Page() {
   const [escribiendo, setEscribiendo] = useState(false);
   const finRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const urlsRef = useRef<string[]>([]);
+
+  const grabadora = useGrabadora();
 
   useEffect(() => {
     finRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [mensajes, escribiendo]);
+  }, [mensajes, escribiendo, grabadora.grabando]);
 
-  useEffect(() => () => {
-    if (timerRef.current) clearTimeout(timerRef.current);
+  // Los object URL de las notas grabadas se sueltan al salir.
+  useEffect(
+    () => () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      urlsRef.current.forEach((url) => URL.revokeObjectURL(url));
+    },
+    [],
+  );
+
+  const agregar = useCallback((mensaje: Omit<Mensaje, "id" | "hora">) => {
+    const id = `m-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    if (mensaje.url) urlsRef.current.push(mensaje.url);
+    setMensajes((previos) => [...previos, { ...mensaje, id, hora: horaAhora() }]);
+    return id;
   }, []);
 
-  function agregar(mensaje: Omit<Mensaje, "id" | "hora">) {
-    setMensajes((previos) => [
-      ...previos,
-      { ...mensaje, id: `m${previos.length + 1}-${Date.now()}`, hora: horaAhora() },
-    ]);
-  }
+  const actualizar = useCallback((id: string, cambios: Partial<Mensaje>) => {
+    setMensajes((previos) =>
+      previos.map((m) => (m.id === id ? { ...m, ...cambios } : m)),
+    );
+  }, []);
 
   /** Eco local. Cuando llegue el brief, esto se cambia por la llamada al agente. */
-  function responder() {
+  const responder = useCallback(() => {
     setEscribiendo(true);
     timerRef.current = setTimeout(() => {
       setEscribiendo(false);
       agregar({ de: "opened", texto: RESPUESTA_ECO });
     }, DELAY_RESPUESTA_MS);
-  }
+  }, [agregar]);
 
   function enviarTexto() {
     const texto = borrador.trim();
@@ -58,12 +76,52 @@ export default function Page() {
     responder();
   }
 
-  function enviarAudio() {
-    agregar(AUDIO_ECO);
-    responder();
+  async function transcribir(id: string, grabacion: Grabacion) {
+    try {
+      const cuerpo = new FormData();
+      cuerpo.append("audio", grabacion.blob, `nota.${extensionDeMime(grabacion.mimeType)}`);
+
+      const respuesta = await fetch("/api/transcribir", { method: "POST", body: cuerpo });
+      const datos = (await respuesta.json().catch(() => null)) as
+        | { texto?: string; error?: string }
+        | null;
+
+      actualizar(id, { transcribiendo: false });
+
+      if (!respuesta.ok || !datos?.texto) {
+        grabadora.setError(
+          datos?.error ?? "No pude transcribir el audio. Escribeme el mensaje.",
+        );
+        return;
+      }
+
+      actualizar(id, { transcripcion: datos.texto });
+      responder();
+    } catch {
+      actualizar(id, { transcribiendo: false });
+      grabadora.setError("No pude transcribir el audio. Escribeme el mensaje.");
+    }
   }
 
-  const hayTexto = borrador.trim().length > 0;
+  async function alternarGrabacion() {
+    if (!grabadora.grabando) {
+      await grabadora.iniciar();
+      return;
+    }
+    const grabacion = await grabadora.detener();
+    if (!grabacion) return; // muy corto, o fallo: el mensaje ya esta en pantalla
+
+    const id = agregar({
+      de: "docente",
+      texto: "Nota de voz",
+      audio: true,
+      duracion: formatearDuracion(grabacion.duracionMs),
+      duracionMs: grabacion.duracionMs,
+      url: grabacion.url,
+      transcribiendo: true,
+    });
+    transcribir(id, grabacion);
+  }
 
   return (
     <main className="flex min-h-screen justify-center bg-[#0b141a]">
@@ -81,12 +139,18 @@ export default function Page() {
           <div ref={finRef} />
         </div>
 
+        {grabadora.error && (
+          <AvisoError texto={grabadora.error} onCerrar={() => grabadora.setError(null)} />
+        )}
+
         <Barra
           borrador={borrador}
           onBorrador={setBorrador}
           onEnviar={enviarTexto}
-          onAudio={enviarAudio}
-          hayTexto={hayTexto}
+          onMicrofono={alternarGrabacion}
+          onCancelar={() => grabadora.cancelar()}
+          grabando={grabadora.grabando}
+          transcurridoMs={grabadora.transcurridoMs}
         />
       </div>
     </main>
@@ -118,6 +182,25 @@ function Aviso() {
   );
 }
 
+function AvisoError({ texto, onCerrar }: { texto: string; onCerrar: () => void }) {
+  return (
+    <div
+      role="alert"
+      className="flex items-start gap-3 bg-[#fdecea] px-4 py-3 text-[14px] text-[#8b2c22]"
+    >
+      <span className="flex-1 leading-snug">{texto}</span>
+      <button
+        type="button"
+        onClick={onCerrar}
+        aria-label="Cerrar aviso"
+        className="shrink-0 rounded px-1 text-[18px] leading-none text-[#8b2c22]/70 hover:text-[#8b2c22] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8b2c22]"
+      >
+        ×
+      </button>
+    </div>
+  );
+}
+
 function Burbuja({ mensaje }: { mensaje: Mensaje }) {
   const propia = mensaje.de === "docente";
 
@@ -132,7 +215,14 @@ function Burbuja({ mensaje }: { mensaje: Mensaje }) {
         ].join(" ")}
       >
         {mensaje.audio ? (
-          <NotaDeVoz duracion={mensaje.duracion ?? "0:00"} />
+          <>
+            <NotaDeVoz
+              duracion={mensaje.duracion ?? "0:00"}
+              duracionMs={mensaje.duracionMs}
+              url={mensaje.url}
+            />
+            <Transcripcion mensaje={mensaje} />
+          </>
         ) : (
           <p className="whitespace-pre-line">{mensaje.texto}</p>
         )}
@@ -145,22 +235,102 @@ function Burbuja({ mensaje }: { mensaje: Mensaje }) {
   );
 }
 
-function NotaDeVoz({ duracion }: { duracion: string }) {
+function Transcripcion({ mensaje }: { mensaje: Mensaje }) {
+  if (!mensaje.transcribiendo && !mensaje.transcripcion) return null;
+
+  return (
+    <p className="mt-2 border-t border-black/10 pt-2 text-[14px] leading-snug text-[#4a5a62]">
+      {mensaje.transcribiendo ? (
+        <span className="italic text-[var(--wa-meta)]">Transcribiendo...</span>
+      ) : (
+        mensaje.transcripcion
+      )}
+    </p>
+  );
+}
+
+function NotaDeVoz({
+  duracion,
+  duracionMs,
+  url,
+}: {
+  duracion: string;
+  duracionMs?: number;
+  url?: string;
+}) {
+  const [reproduciendo, setReproduciendo] = useState(false);
+  const [avance, setAvance] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  /*
+   * El avance se calcula contra la duracion que medimos al grabar, no
+   * contra audio.duration. Chrome actual si reporta duracion finita en el
+   * webm de MediaRecorder (medido: 2.4s), pero llega recien con
+   * loadedmetadata y otros navegadores dan Infinity en ese contenedor.
+   * La duracion medida ya la tenemos desde el segundo cero.
+   */
+  const totalMs = duracionMs && duracionMs > 0 ? duracionMs : 0;
+
+  function alternar() {
+    const audio = audioRef.current;
+    if (!audio || !url) return;
+    if (reproduciendo) {
+      audio.pause();
+      return;
+    }
+    if (avance >= 1) audio.currentTime = 0;
+    audio.play().catch(() => setReproduciendo(false));
+  }
+
+  const llenas = Math.round(avance * BARRAS.length);
+
   return (
     <span className="flex w-56 items-center gap-2.5">
-      <svg viewBox="0 0 24 24" className="h-7 w-7 shrink-0 fill-[#54656f]" aria-hidden>
-        <path d="M8 5v14l11-7z" />
-      </svg>
+      <button
+        type="button"
+        onClick={alternar}
+        disabled={!url}
+        aria-label={reproduciendo ? "Pausar nota de voz" : "Reproducir nota de voz"}
+        className="shrink-0 rounded-full text-[#54656f] disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--wa-header)]"
+      >
+        <svg viewBox="0 0 24 24" className="h-7 w-7 fill-current" aria-hidden>
+          {reproduciendo ? (
+            <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" />
+          ) : (
+            <path d="M8 5v14l11-7z" />
+          )}
+        </svg>
+      </button>
+
       <span className="flex flex-1 items-center gap-[3px]" aria-hidden>
-        {[9, 15, 22, 12, 26, 18, 10, 20, 14, 24, 11, 17, 8, 21, 13].map((alto, i) => (
+        {BARRAS.map((alto, i) => (
           <span
             key={i}
-            className="w-[3px] rounded-full bg-[#9aa4a9]"
+            className={`w-[3px] rounded-full ${i < llenas ? "bg-[#4fa3d1]" : "bg-[#9aa4a9]"}`}
             style={{ height: `${alto}px` }}
           />
         ))}
       </span>
+
       <span className="shrink-0 text-[12px] text-[var(--wa-meta)]">{duracion}</span>
+
+      {url && (
+        <audio
+          ref={audioRef}
+          src={url}
+          preload="metadata"
+          onPlay={() => setReproduciendo(true)}
+          onPause={() => setReproduciendo(false)}
+          onEnded={() => {
+            setReproduciendo(false);
+            setAvance(1);
+          }}
+          onTimeUpdate={(e) => {
+            if (!totalMs) return;
+            setAvance(Math.min(1, (e.currentTarget.currentTime * 1000) / totalMs));
+          }}
+        />
+      )}
     </span>
   );
 }
@@ -194,15 +364,21 @@ function Barra({
   borrador,
   onBorrador,
   onEnviar,
-  onAudio,
-  hayTexto,
+  onMicrofono,
+  onCancelar,
+  grabando,
+  transcurridoMs,
 }: {
   borrador: string;
   onBorrador: (valor: string) => void;
   onEnviar: () => void;
-  onAudio: () => void;
-  hayTexto: boolean;
+  onMicrofono: () => void;
+  onCancelar: () => void;
+  grabando: boolean;
+  transcurridoMs: number;
 }) {
+  const hayTexto = borrador.trim().length > 0;
+
   return (
     <form
       className="flex items-center gap-2 bg-[var(--wa-barra)] px-3 py-2.5"
@@ -211,20 +387,52 @@ function Barra({
         onEnviar();
       }}
     >
-      <input
-        value={borrador}
-        onChange={(e) => onBorrador(e.target.value)}
-        placeholder="Cuenteme que paso en el aula"
-        aria-label="Mensaje"
-        className="min-w-0 flex-1 rounded-full bg-white px-4 py-3 text-[16px] text-[var(--wa-texto)] outline-none placeholder:text-[#8696a0] focus:ring-2 focus:ring-[var(--wa-accion)]"
-      />
+      {grabando ? (
+        <>
+          <button
+            type="button"
+            onClick={onCancelar}
+            aria-label="Cancelar grabacion"
+            className="grid h-12 w-12 shrink-0 place-items-center rounded-full text-[#8696a0] hover:text-[#54656f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--wa-header)]"
+          >
+            <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden>
+              <path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z" />
+            </svg>
+          </button>
+          <span className="flex min-w-0 flex-1 items-center gap-2 px-1 text-[16px] text-[var(--wa-texto)]">
+            <span className="h-2.5 w-2.5 shrink-0 animate-pulse rounded-full bg-[#e02f2f]" />
+            Grabando {formatearDuracion(transcurridoMs)}
+          </span>
+        </>
+      ) : (
+        <input
+          value={borrador}
+          onChange={(e) => onBorrador(e.target.value)}
+          placeholder="Cuenteme que paso en el aula"
+          aria-label="Mensaje"
+          className="min-w-0 flex-1 rounded-full bg-white px-4 py-3 text-[16px] text-[var(--wa-texto)] outline-none placeholder:text-[#8696a0] focus:ring-2 focus:ring-[var(--wa-accion)]"
+        />
+      )}
+
       <button
-        type={hayTexto ? "submit" : "button"}
-        onClick={hayTexto ? undefined : onAudio}
-        aria-label={hayTexto ? "Enviar mensaje" : "Enviar nota de voz"}
-        className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[var(--wa-accion)] text-white transition-transform active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--wa-header)]"
+        type={hayTexto && !grabando ? "submit" : "button"}
+        onClick={hayTexto && !grabando ? undefined : onMicrofono}
+        aria-label={
+          grabando
+            ? "Terminar y enviar nota de voz"
+            : hayTexto
+              ? "Enviar mensaje"
+              : "Grabar nota de voz"
+        }
+        className={`grid h-12 w-12 shrink-0 place-items-center rounded-full text-white transition-transform active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--wa-header)] ${
+          grabando ? "bg-[#e02f2f]" : "bg-[var(--wa-accion)]"
+        }`}
       >
-        {hayTexto ? (
+        {grabando ? (
+          <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden>
+            <rect x="5" y="5" width="14" height="14" rx="2" />
+          </svg>
+        ) : hayTexto ? (
           <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden>
             <path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z" />
           </svg>

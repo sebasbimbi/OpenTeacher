@@ -20,6 +20,14 @@ export interface Mensaje {
   audio?: boolean;
   /** Duracion de la nota de voz, formato m:ss. */
   duracion?: string;
+  /** Duracion real medida al grabar. Se usa para la barra de reproduccion. */
+  duracionMs?: number;
+  /** Object URL del blob grabado. Sin esto la nota no se puede reproducir. */
+  url?: string;
+  /** Texto que devolvio /api/transcribir. */
+  transcripcion?: string;
+  /** True mientras la transcripcion esta en vuelo. */
+  transcribiendo?: boolean;
 }
 
 export const CONTACTO = {
@@ -73,3 +81,10 @@ export function horaAhora(): string {
     hour12: false,
   });
 }
+
+/**
+ * Transcripcion fija que devuelve /api/transcribir en modo mock.
+ * Es lo que se escucha en la nota de voz de arriba.
+ */
+export const TRANSCRIPCION_MOCK =
+  "Profe, disculpe. Hoy en el recreo dos chicos de cuarto se agarraron a golpes y cuando los separe uno me dijo que ya van varias veces. No supe que hacer, los mande a direccion y me quede mal el resto del dia.";
