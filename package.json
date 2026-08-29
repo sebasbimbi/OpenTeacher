@@ -7,7 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/audioErrores.check.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/consentimiento.check.ts",
+    "check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/audioErrores.check.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/consentimiento.check.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/norma.check.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON lib/cuaderno.check.ts",
     "test:audio": "node scripts/audio.test.mjs",
     "test:movil": "node scripts/movil.test.mjs",
     "build:check": "NEXT_DIST_DIR=.next-build next build",
@@ -15,7 +15,8 @@
     "test:grabacion": "node scripts/aula-grabacion.test.mjs",
     "test:agente": "node scripts/agente.test.mjs",
     "dev:alt": "NEXT_DIST_DIR=.next-alt next dev -p 3009",
-    "test:criterio": "node scripts/criterio.test.mjs"
+    "test:criterio": "node scripts/criterio.test.mjs",
+    "test:ficha": "node scripts/ficha.test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.122.0",
