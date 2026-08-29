@@ -90,7 +90,7 @@ export const NORMA: FilaNorma[] = [
       "Informar al director o al responsable de convivencia escolar el mismo día.",
       "El director convoca al Comité de Gestión del Bienestar para fijar medidas de protección y correctivas.",
       "Reunión con los padres o apoderados de cada estudiante involucrado, por separado.",
-      "El hecho se anota en el Libro de Registro de Incidencias y se reporta en el Portal SíseVe.",
+      "El registro en el Libro de Registro de Incidencias y el reporte al Portal SíseVe los hace la dirección o el responsable de convivencia, no usted.",
       "Derivación al centro de salud u otro servicio para la atención médica o psicológica.",
     ],
     plazo: "30 días hábiles",
@@ -125,7 +125,7 @@ export const NORMA: FilaNorma[] = [
       "El director convoca al Comité de Gestión del Bienestar para fijar medidas de protección y correctivas.",
       "Tutoría grupal sobre las causas del acoso y tutoría individual con agredidos y agresores.",
       "Reunión con los padres o apoderados de cada estudiante involucrado, por separado.",
-      "El hecho se anota en el Libro de Registro de Incidencias y se reporta en el Portal SíseVe.",
+      "El registro en el Libro de Registro de Incidencias y el reporte al Portal SíseVe los hace la dirección o el responsable de convivencia, no usted.",
       "En ciberbullying, recabar y guardar las evidencias: capturas, grabaciones y la dirección donde se publicó.",
     ],
     plazo: "30 días hábiles",
@@ -161,7 +161,7 @@ export const NORMA: FilaNorma[] = [
       "El director evalúa el riesgo y, de haber peligro, dispone la evacuación parcial o total.",
       "Si hay un herido, traslado de emergencia al servicio de salud más cercano.",
       "El director eleva un informe a la UGEL.",
-      "El hecho se anota en el Libro de Registro de Incidencias y se reporta en el Portal SíseVe.",
+      "El registro en el Libro de Registro de Incidencias y el reporte al Portal SíseVe los hace la dirección, no usted.",
     ],
     plazo: "20 días hábiles",
     hitos: [
@@ -191,9 +191,9 @@ export const NORMA: FilaNorma[] = [
     cuando:
       "Conducta con connotación sexual de un estudiante contra otro. No hace falta que haya mediado violencia ni amenaza.",
     ruta: [
-      "Presentar la denuncia correspondiente. Puede ser verbal, y entonces se levanta acta ante el director.",
+      "Usted informa al director o al responsable de convivencia el mismo día. La denuncia puede ser verbal, y entonces se levanta acta ante el director.",
       "El director comunica el hecho a la Comisaría o al Ministerio Público si la familia no lo hizo.",
-      "El hecho se anota en el Libro de Registro de Incidencias y se reporta en el Portal SíseVe.",
+      "El registro en el Libro de Registro de Incidencias y el reporte al Portal SíseVe los hace la dirección, no usted.",
       "No interrogar ni entrevistar al estudiante: la revictimización está prohibida.",
       "Está prohibido conciliar entre los involucrados o sus familiares.",
       "Orientar a la familia sobre el Centro Emergencia Mujer o el Servicio de Atención Rural.",
@@ -226,10 +226,10 @@ export const NORMA: FilaNorma[] = [
     cuando:
       "Personal de la institución usa la fuerza o el trato denigrante para corregir a un estudiante: jalones de oreja, palmazos, planas, insultos, ridiculizaciones, discriminación.",
     ruta: [
-      "Presentar la denuncia administrativa. Puede ser verbal, y entonces se levanta acta ante el director.",
+      "Usted informa al director el mismo día. La denuncia administrativa puede ser verbal, y entonces se levanta acta ante el director.",
       "El director convoca al Comité de Gestión del Bienestar y coordina el acompañamiento socioemocional del estudiante agredido.",
       "Comunicar el hecho a la UGEL, que evalúa el inicio del procedimiento administrativo disciplinario.",
-      "El hecho se anota en el Libro de Registro de Incidencias y se reporta en el Portal SíseVe.",
+      "El registro en el Libro de Registro de Incidencias y el reporte al Portal SíseVe los hace la dirección, no usted.",
       "Está prohibido conciliar, minimizar el hecho o naturalizarlo.",
       "Si el castigo es reiterado o hay grave afectación a la vida, el cuerpo o la salud, se comunica además a la autoridad competente.",
     ],
@@ -267,9 +267,9 @@ export const NORMA: FilaNorma[] = [
       "Conducta con connotación sexual de un trabajador de la institución hacia un estudiante, presencial o por medios digitales.",
     ruta: [
       "Todo integrante de la comunidad educativa debe comunicar el hecho a la Dirección apenas lo conoce.",
-      "Presentar la denuncia administrativa y comunicar de manera inmediata a la Comisaría o al Ministerio Público.",
+      "El director presenta la denuncia administrativa y comunica de manera inmediata a la Comisaría o al Ministerio Público.",
       "Separación preventiva del personal presuntamente agresor, poniéndolo a disposición de la UGEL.",
-      "El hecho se anota en el Libro de Registro de Incidencias con las iniciales del estudiante, nunca su nombre, y se reporta en el Portal SíseVe.",
+      "La dirección anota el hecho en el Libro de Registro de Incidencias con las iniciales del estudiante, nunca su nombre, y lo reporta en el Portal SíseVe.",
       "Derivación obligatoria al Centro Emergencia Mujer, o al Servicio de Atención Rural donde no exista CEM.",
       "No interrogar ni entrevistar al estudiante, y no conciliar con los involucrados ni con sus familiares.",
     ],
@@ -303,10 +303,10 @@ export const NORMA: FilaNorma[] = [
     cuando:
       "Señales de alerta de que un estudiante es agredido en su casa o por alguien de su entorno: golpes, negligencia, humillación sostenida o violencia sexual.",
     ruta: [
-      "Informar al director de inmediato apenas se detectan las señales de alerta.",
+      "Detectar las señales de alerta e informar de inmediato al director. Aquí la norma sí nombra a docentes y tutores.",
       "El director se comunica el mismo día con el padre o apoderado que no esté involucrado en el hecho.",
-      "Denuncia ante la comisaría, la fiscalía o el juzgado.",
-      "Registrar el hecho en el Libro o cuaderno de actas de la institución.",
+      "El director denuncia ante la comisaría, la fiscalía o el juzgado.",
+      "El hecho se registra en el Libro o cuaderno de actas de la institución.",
       "Derivación al Centro Emergencia Mujer, o al Servicio de Atención Rural en ámbitos rurales y pueblos indígenas.",
       "Si el castigo físico o humillante viene de la familia, comunicar además a la DEMUNA.",
     ],
@@ -408,11 +408,17 @@ export function resolverNorma(clave: string | null | undefined): FilaNorma {
 /**
  * Cita corta para el pie de la tarjeta. Aca es donde el digito se pinta,
  * con dos cifras porque asi lo escribe el documento ("PROTOCOLO 03").
+ *
+ * Dice "del Anexo 03" SIEMPRE, y no es verborrea: el Portal SiseVe numera
+ * sus protocolos del uno al cinco y esa numeracion NO coincide con la del
+ * Anexo 03 (tabla de equivalencias, Anexo N.02, pdf p.42). Mandar a una
+ * docente a "el protocolo tres" del SiseVe la manda a castigo humillante
+ * de personal de la IE, no a armas.
  */
 export function citaCorta(fila: FilaNorma): string {
   return fila.protocolo === null
     ? fila.fuente.norma.replace("RM 383-2025-MINEDU, ", "RM 383-2025-MINEDU · ")
-    : `RM 383-2025-MINEDU · Anexo 03 · Protocolo ${etiquetaProtocolo(fila)}`;
+    : `RM 383-2025-MINEDU · Protocolo ${etiquetaProtocolo(fila)} del Anexo 03`;
 }
 
 /** "03". Cadena vacia cuando la fila no tiene protocolo que numerar. */

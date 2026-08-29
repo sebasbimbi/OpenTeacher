@@ -40,16 +40,43 @@ for (const estado of ["protocolo", "informativa", "sin_norma"]) {
 res.push(`PASS  los tres estados renderizan (${estados.join(", ")})`);
 
 // ------------------------------- 2. el digito que se pinta es el de la tabla
-const arma = p.locator('[data-clave="protocolo_03"]');
+// La primera es la del CHAT (sin cronograma); la segunda es la del CUADERNO.
+const arma = p.locator('[data-clave="protocolo_03"]').first();
 await arma.waitFor();
 const texto = await arma.innerText();
 assert.match(texto, /Violencia con uso de armas/);
 assert.match(texto, /\b03\b/, "no se ve el numero de protocolo");
 assert.match(texto, /20 días hábiles/, "el plazo del protocolo del arma es de 20, no de 30");
-assert.match(texto, /Hasta 24 horas de la intervención/, "falta el hito de la UGEL");
-assert.match(texto, /Protocolo 03/, "falta la cita al pie");
 assert.match(texto, /PDF p\. 22, folio 19/, "la tarjeta debe decir donde auditar el dato");
-res.push("PASS  protocolo 03 pinta numero, plazo, hito y fuente auditable");
+res.push("PASS  protocolo 03 pinta numero, plazo y fuente auditable");
+
+// El numero SIEMPRE se declara como del Anexo 03: el SiseVe numera del 1 al 5
+// y su protocolo 3 es castigo humillante de personal, no armas.
+assert.match(
+  texto,
+  /Protocolo 03 del Anexo 03/,
+  "un numero de protocolo suelto se confunde con la numeracion del SiseVe",
+);
+res.push("PASS  el numero se declara como del Anexo 03, no suelto");
+
+// ------------------------ 2b. en el chat NO va el cronograma de 30 dias
+assert.doesNotMatch(texto, /HITOS CON PLAZO/i, "el cronograma no va en la tarjeta del chat");
+assert.doesNotMatch(texto, /Hasta 24 horas de la intervención/);
+const conHitos = p.locator('[data-clave="protocolo_03"]').nth(1);
+const textoCuaderno = await conHitos.innerText();
+assert.match(textoCuaderno, /HITOS CON PLAZO/i, "el cuaderno si muestra el cronograma");
+assert.match(textoCuaderno, /Hasta 24 horas de la intervención/);
+assert.match(textoCuaderno, /Día 20/, "falta el cierre del caso en el cronograma");
+res.push("PASS  el cronograma sale del chat y aparece solo en modo cuaderno");
+
+// ------------------------ 2c. ninguna tarjeta pone un numero pegado a SiseVe
+const todo = await p.$$eval("[data-estado]", (n) => n.map((x) => x.innerText).join("\n"));
+assert.doesNotMatch(
+  todo,
+  /(s[ií]seve[^.\n]{0,40}\d)|(\d[^.\n]{0,40}s[ií]seve)/i,
+  "hay un digito cerca de SiseVe: su numeracion no es la del Anexo 03",
+);
+res.push("PASS  ninguna tarjeta pone un numero cerca de SiseVe");
 
 // ------------------ 3. la ficha de la docente agredida no se inventa un numero
 const docente = p.locator('[data-clave="docente_agredido"]');

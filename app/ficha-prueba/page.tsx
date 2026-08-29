@@ -24,6 +24,9 @@ export default function Page() {
           <FichaNorma key={clave} clave={clave} />
         ))}
 
+        {/* Como la ve el cuaderno: con el cronograma de hitos encendido. */}
+        <FichaNorma clave="protocolo_03" mostrarHitos />
+
         {/* Una fila con el sello volteado, para ver como degrada la tarjeta
             si una docente desmiente un dato a ultima hora. */}
         <FichaNorma

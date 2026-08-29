@@ -102,6 +102,36 @@ for (const fila of NORMA) {
   );
 }
 
+// --- 3b. LA TRAMPA DEL SISEVE -----------------------------------------------
+//
+// El Portal SiseVe numera sus protocolos del uno al cinco; el Anexo 03 los
+// numera del uno al siete, y NO coinciden (tabla de equivalencias, Anexo
+// N.02, pdf p.42). "Reportalo en SiseVe como protocolo tres" manda a la
+// docente a castigo humillante de personal de la IE, no a armas. Y la tabla
+// de equivalencias ni siquiera cubre armas ni entorno familiar.
+// Por eso: ninguna cadena visible puede poner SiseVe cerca de un digito.
+
+const SISEVE_CON_DIGITO = /(s[ií]seve[^.]{0,40}\d)|(\d[^.]{0,40}s[ií]seve)/i;
+
+for (const fila of NORMA) {
+  const visibles = [fila.titulo, fila.cuando, fila.noAplica ?? "", ...fila.ruta];
+  for (const texto of visibles) {
+    assert.ok(
+      !SISEVE_CON_DIGITO.test(texto),
+      `${fila.clave} pone un numero cerca de SiseVe: "${texto}". El SiseVe numera distinto que el Anexo 03.`,
+    );
+  }
+}
+
+// Y el numero que se pinta siempre se declara como del Anexo 03, nunca suelto.
+for (const fila of protocolos) {
+  assert.match(
+    citaCorta(fila),
+    /del Anexo 03$/,
+    `la cita de ${fila.clave} debe decir de que anexo es el numero, o se confunde con el del SiseVe`,
+  );
+}
+
 // --- 4. Toda clave resuelve, y lo inventado no rompe nada --------------------
 
 for (const clave of CLAVES_NORMA) {

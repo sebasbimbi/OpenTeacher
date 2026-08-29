@@ -55,9 +55,17 @@ export interface FichaNormaProps {
   clave?: string | null;
   /** O la fila ya resuelta, para el cuaderno y para los checks. */
   fila?: FilaNorma;
+  /**
+   * El cronograma de hitos. Apagado en el chat a proposito: en caliente la
+   * docente necesita QUE HACER AHORA, no la linea de tiempo de treinta dias,
+   * y una tarjeta de protocolo completa se desborda en un proyector de
+   * 1024x768. El cronograma se consulta con calma en el cuaderno, que es
+   * quien enciende esto.
+   */
+  mostrarHitos?: boolean;
 }
 
-export default function FichaNorma({ clave, fila }: FichaNormaProps) {
+export default function FichaNorma({ clave, fila, mostrarHitos = false }: FichaNormaProps) {
   const norma = fila ?? resolverNorma(clave);
   const estilo = ESTILO[norma.nivel];
   const numero = etiquetaProtocolo(norma);
@@ -116,7 +124,7 @@ export default function FichaNorma({ clave, fila }: FichaNormaProps) {
           ))}
         </ol>
 
-        {norma.hitos.length > 0 ? (
+        {mostrarHitos && norma.hitos.length > 0 ? (
           <>
             <Rotulo>Hitos con plazo</Rotulo>
             <dl className="mt-1.5 flex flex-col divide-y divide-black/[0.07] border-y border-black/[0.07]">
