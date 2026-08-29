@@ -34,6 +34,8 @@ npm run test:audio   # ruta de audio en Chromium real: camino feliz + los 3 modo
 
 ```bash
 npm run test:movil   # PWA en 390px CONTRA PRODUCCION: que el microfono grabe de verdad sobre https
+npm run test:aula        # la puerta de consentimiento es de verdad una puerta
+npm run test:grabacion   # rotacion, persistencia y honestidad de la duracion
 ```
 
 `test:audio` corre contra localhost por defecto y `test:movil` contra produccion. Ambos aceptan `URL_APP=` para apuntar al otro lado.
@@ -45,6 +47,10 @@ La grabacion necesita https o localhost (requisito del navegador, no del proyect
 | Ruta | Que hace |
 |---|---|
 | `app/page.tsx` | Simulador de chat de WhatsApp. Plan B de la demo. |
+| `app/aula/page.tsx` | Captura ambiental de la clase. Puerta de consentimiento y grabacion larga. |
+| `lib/grabadoraLarga.ts` | Rotacion de MediaRecorder cada 5 minutos, sin apagar el microfono. |
+| `lib/segmentos.ts` | Persistencia de segmentos en IndexedDB. Sobrevive a cerrar la pestana. |
+| `lib/consentimiento.ts` | La puerta. Sin registro completo no existe el boton de grabar. |
 | `app/api/transcribir/route.ts` | Transcribe la nota de voz con Whisper. Modo mock sin llave. |
 | `lib/grabadora.ts` | Hook de MediaRecorder. Graba, mide, y maneja los modos de falla. |
 | `lib/audioErrores.ts` | Helpers puros de la ruta de audio. Cubiertos por `npm run check`. |

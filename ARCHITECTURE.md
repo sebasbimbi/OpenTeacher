@@ -82,6 +82,32 @@ Los cuatro degradan con mensaje en pantalla y dejan el chat usable. Ninguno cuel
 | Menos de un segundo | Se descarta, no se crea burbuja, aviso "Muy corto". La siguiente grabacion funciona normal. |
 | Cancelar a mitad | Sin burbuja, sin aviso de error, barra en inactivo. |
 
+## Grabacion larga de aula (/aula)
+
+Una clase de 45 minutos en opus mono ronda los 37 MB y Whisper corta en 25 MB, asi que hay que trocear.
+
+**No se usa `recorder.start(timeslice)`.** Los trozos que emite despues del primero salen sin cabecera y no son decodificables por separado. En su lugar se **rota el MediaRecorder**: cada 5 minutos se para el recorder y se arranca uno nuevo sobre el mismo stream. Cada segmento sale como un webm completo y valido por si solo. Sin ffmpeg y sin cirugia de cabeceras. Verificado byte a byte: cada segmento arranca con la cabecera EBML `1a45dfa3` propia.
+
+**Un solo `getUserMedia`.** Al rotar se para el RECORDER, nunca las pistas del stream. Si se paran las pistas, el navegador apaga el microfono y el indicador parpadea en cada rotacion, o vuelve a pedir permiso. La prueba cuenta las llamadas: 3 segmentos, 1 sola llamada.
+
+**Persistencia en IndexedDB, no localStorage.** localStorage solo guarda strings; IndexedDB guarda Blobs. Cada segmento se escribe apenas cierra, no al final: si la pestana muere en el minuto 40, lo grabado hasta ahi esta a salvo y se recupera al volver a entrar.
+
+### La duracion que se reporta es la honesta
+
+Se reporta la **suma real de los segmentos capturados**, no el reloj de pared. Si el navegador estrangulo los timers con la pestana en segundo plano, la pantalla dice cuanto audio falta en vez de afirmar 45 minutos que no grabo. Vale mas una sesion que dice "se corto en el minuto 22" que una que miente diciendo 45.
+
+Tres formas de detectarlo, las tres cubiertas:
+
+| Senal | Que se hace |
+|---|---|
+| `visibilitychange` a oculto | Se anota el tramo y se avisa en pantalla al volver. |
+| Un segmento que dura mas de 1.5x el intervalo | El timer fue estrangulado. Se avisa. |
+| `track.onended` | El sistema le quito el microfono. Se para y se dice, sin seguir en falso. |
+
+### Gancho de prueba
+
+`?seg=N` rota cada N segundos en vez de cada 5 minutos. Sin eso, verificar la rotacion cuesta 15 minutos de reloj por corrida. La maquina de estados es la misma.
+
 ## PWA
 
 `app/manifest.ts` la hace instalable en el telefono: `display: standalone`, colores de la paleta de WhatsApp que ya usa la interfaz, e iconos 192, 512 y uno maskable con la zona segura que Android recorta.
