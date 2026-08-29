@@ -28,6 +28,8 @@ export interface Mensaje {
   transcripcion?: string;
   /** True mientras la transcripcion esta en vuelo. */
   transcribiendo?: boolean;
+  /** Fila de la tabla normativa que pinta la tarjeta bajo la burbuja. */
+  claveNorma?: string;
 }
 
 export const CONTACTO = {

@@ -39,7 +39,8 @@ export function incidenciaMock(): Incidencia {
     es_violencia: true,
     requiere_derivacion: false,
     resumen:
-      "Dos estudiantes de cuarto se agredieron fisicamente en el recreo. La docente los separo y los derivo a direccion. Segun uno de ellos, no es la primera vez.",
+      "Dos estudiantes de cuarto se agredieron físicamente en el recreo. La docente los separó y los derivó a dirección. Según uno de ellos, no es la primera vez.",
+    clave_norma: "protocolo_01",
     alumno_iniciales: "",
   };
 }
@@ -133,6 +134,9 @@ export async function responderIncidencia(
         es_violencia: datos.es_violencia ?? false,
         requiere_derivacion: datos.requiere_derivacion ?? false,
         resumen: (datos.resumen ?? "").trim(),
+        // Sin defensa extra: resolverNorma() ya cae en la ficha prudente si
+        // el modelo se inventa una clave.
+        clave_norma: datos.clave_norma ?? "",
         alumno_iniciales: sanearIniciales(datos.alumno_iniciales),
       },
       mock: false,

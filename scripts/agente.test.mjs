@@ -42,11 +42,22 @@ assert.ok(b1.length > 20, "la primera burbuja vino vacia");
 assert.ok(b2.length > 20, "la segunda burbuja vino vacia");
 res.push(`PASS  dos burbujas del agente (${b1.length} y ${b2.length} chars)`);
 
-// ----------- 2. NINGUN digito de norma, plazo ni telefono en lo que se pinta
-const todo = textos.join("\n");
+// ----------- 2. NINGUN digito de norma, plazo ni telefono EN LA PROSA DEL
+// MODELO. Los digitos si aparecen en pantalla, pero los pone la tarjeta desde
+// una tabla verificada: esa separacion es justo lo que se esta probando, asi
+// que la tarjeta se excluye del barrido.
+const todo = await p.evaluate(() =>
+  [...document.querySelectorAll('ol > li:not([aria-label*="escribiendo"])')]
+    .map((li) => {
+      const copia = li.cloneNode(true);
+      copia.querySelectorAll("[data-clave]").forEach((f) => f.remove());
+      return copia.textContent ?? "";
+    })
+    .join("\n"),
+);
 const prohibidos = todo.match(/\b(29719|29733|29988|004-2018|0800[\s-]?\d+|\b1\d{2}\b|art\.?\s*\d+|\d+\s*d[ií]as h[aá]biles)\b/gi);
 assert.equal(prohibidos, null, `el modelo escribio digitos prohibidos: ${prohibidos}`);
-res.push("PASS  cero digitos de ley, plazo o telefono en pantalla");
+res.push("PASS  cero digitos de ley, plazo o telefono en la PROSA DEL MODELO (la tarjeta si los pone)");
 
 // ------------------------------------- 3. sin guiones largos ni emojis
 assert.equal(/[—–]/.test(todo), false, "salio un guion largo");

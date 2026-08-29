@@ -67,4 +67,21 @@ const digitos = todo.match(/\b(29719|29733|29988|004-2018|0800[\s-]?\d+|\b1\d{2}
 assert.equal(digitos, null, `el modelo escribio digitos prohibidos: ${digitos}`);
 res.push("PASS  cero digitos de ley, plazo o telefono en las tres respuestas");
 
+// --- 5. La CLAVE de la tarjeta. El enum son slugs opacos: sin los titulos
+// delante, el modelo adivina mal. Medido: un caso de arma salio como
+// protocolo_04, que es violencia sexual. Esa tarjeta delante de educadoras
+// nos hunde, asi que las seis clasificaciones quedan fijadas.
+const casos = [
+  ["arma", "Un chico saco una navaja en el patio.", "protocolo_03"],
+  ["acoso entre pares", "A un chico lo molestan todos los dias por WhatsApp sus companeros, ya van semanas.", "protocolo_02"],
+  ["golpes entre alumnos", "Dos chicos se golpearon en el recreo, uno quedo con el labio roto.", "protocolo_01"],
+  ["docente agredida", "Un alumno me empujo y me grito delante del salon.", "docente_agredido"],
+  ["conflicto", "Le puse un limite firme sin gritar y se molesto.", "sin_protocolo"],
+];
+for (const [nombre, texto, esperada] of casos) {
+  const r = await preguntar(texto);
+  assert.equal(r.clave_norma, esperada, `${nombre}: esperaba ${esperada} y vino ${r.clave_norma}`);
+}
+res.push(`PASS  las ${casos.length} clasificaciones de norma caen en la fila correcta`);
+
 console.log("\n" + res.join("\n") + "\n");

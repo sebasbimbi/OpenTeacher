@@ -10,6 +10,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import FichaNorma from "@/components/FichaNorma";
 import { extensionDeMime, formatearDuracion } from "@/lib/audioErrores";
 import { useGrabadora, type Grabacion } from "@/lib/grabadora";
 import {
@@ -92,13 +93,16 @@ export default function Page() {
       const datos = (await respuesta.json().catch(() => null)) as {
         bloque_1?: string;
         bloque_2?: string;
+        clave_norma?: string;
       } | null;
 
       const bloque1 = datos?.bloque_1?.trim() || RESPUESTA_ECO.split("\n\n")[0];
       const bloque2 = datos?.bloque_2?.trim() ?? "";
+      const clave = datos?.clave_norma;
 
       setEscribiendo(false);
-      agregar({ de: "opened", texto: bloque1 });
+      // La tarjeta cuelga de la burbuja que lleva la ruta, o sea la segunda.
+      agregar({ de: "opened", texto: bloque1, claveNorma: bloque2 ? undefined : clave });
 
       if (bloque2) {
         // La pausa entre burbujas es lo que hace que se lea como una persona
@@ -106,7 +110,7 @@ export default function Page() {
         setEscribiendo(true);
         await esperar(DELAY_RESPUESTA_MS);
         setEscribiendo(false);
-        agregar({ de: "opened", texto: bloque2 });
+        agregar({ de: "opened", texto: bloque2, claveNorma: clave });
       }
     } catch {
       setEscribiendo(false);
@@ -254,7 +258,7 @@ function Burbuja({ mensaje }: { mensaje: Mensaje }) {
   const propia = mensaje.de === "docente";
 
   return (
-    <li className={propia ? "flex justify-end" : "flex justify-start"}>
+    <li className={propia ? "flex flex-col items-end" : "flex flex-col items-start"}>
       <div
         className={[
           "max-w-[85%] px-3 py-2 text-[16px] leading-[1.45] text-[var(--wa-texto)] shadow-sm",
@@ -280,6 +284,13 @@ function Burbuja({ mensaje }: { mensaje: Mensaje }) {
           {propia && <Checks />}
         </span>
       </div>
+
+      {/* La tarjeta pone los digitos que el agente tiene prohibido escribir. */}
+      {mensaje.claveNorma && (
+        <div className="mt-1.5 w-full">
+          <FichaNorma clave={mensaje.claveNorma} />
+        </div>
+      )}
     </li>
   );
 }

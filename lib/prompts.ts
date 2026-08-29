@@ -34,10 +34,12 @@ export const CATEGORIAS = [
 
 export type Categoria = (typeof CATEGORIAS)[number];
 
+import { CLAVES_NORMA, NORMA } from "./norma";
+
 export const MOMENTOS = ["en_caliente", "en_frio", "preventivo"] as const;
 export type Momento = (typeof MOMENTOS)[number];
 
-export const SISTEMA_OPENED = `Eres OpenEd. Escribes con docentes de aula en Peru, en un chat que se ve
+const BASE_SISTEMA = `Eres OpenEd. Escribes con docentes de aula en Peru, en un chat que se ve
 como WhatsApp. Eres una colega auxiliar con anios de pasillo: directa,
 calida, sin floro. NO eres chatbot corporativo ni coach de superacion.
 
@@ -67,6 +69,10 @@ una tarjeta que se pinta debajo de tu mensaje y que lee de una tabla
 verificada. Tu escribes la ruta en palabras: "hoy mismo a direccion",
 "eso lo registra el responsable de convivencia, no usted", "eso va a la
 policia de inmediato".
+Esa tarjeta se elige con el campo clave_norma que tu devuelves. Elige la
+fila que corresponde al hecho. Si es convivencia y no violencia, usa
+sin_protocolo. Si la agredida es la docente, usa docente_agredido. Ante
+la duda entre dos filas, elige la mas protectora.
 
 LA DOCENTE NO ES LA DUENIA DEL PROTOCOLO. Esto cambia como le hablas.
 La aplicacion de los protocolos recae en el DIRECTOR y en el responsable
@@ -202,6 +208,30 @@ abogada. Para eso esta la linea de salud mental, gratis. Pero aca estoy."
 Nunca en el saludo, nunca como bloque legal.`;
 
 /**
+ * La tabla de claves se GENERA desde NORMA, no se escribe a mano.
+ *
+ * Medido: con solo los slugs en el enum, el modelo tiene que adivinar que
+ * numero es que protocolo, y adivina mal. Un caso de arma salio como
+ * protocolo_04, que es violencia sexual. Esa tarjeta delante de educadoras
+ * nos hunde. Con los titulos delante, elige bien.
+ *
+ * Generarla desde la tabla ademas garantiza que no pueda quedar desfasada.
+ */
+const TABLA_CLAVES = NORMA.map((f) => `- ${f.clave}: ${f.titulo}`).join("\n");
+
+export const SISTEMA_OPENED = `${BASE_SISTEMA}
+
+QUE CLAVE DE NORMA DEVOLVER EN clave_norma
+Elige la fila que corresponde al hecho que te contaron. Estas son TODAS
+las filas y lo que cubre cada una. No inventes claves fuera de esta lista.
+
+${TABLA_CLAVES}
+
+sin_protocolo es para convivencia que NO es violencia.
+docente_agredido es cuando la agredida es la docente, no un estudiante.
+Ante la duda entre dos filas, elige la mas protectora.`;
+
+/**
  * Esquema de la herramienta. `strict: true` mas additionalProperties false
  * garantiza que input valide exacto, asi que el codigo no adivina.
  */
@@ -250,6 +280,12 @@ export const HERRAMIENTA_REGISTRAR = {
         description:
           "Una o dos frases en CONDUCTAS OBSERVABLES para el cuaderno. Nunca juicios sobre el alumno ('es agresivo'), solo lo que se vio.",
       },
+      clave_norma: {
+        type: "string",
+        enum: CLAVES_NORMA,
+        description:
+          "Que fila de la tabla normativa aplica. sin_protocolo cuando es convivencia y no violencia. docente_agredido cuando la agredida es la docente. Si dudas entre dos, elige la mas protectora.",
+      },
       alumno_iniciales: {
         type: "string",
         description:
@@ -264,6 +300,7 @@ export const HERRAMIENTA_REGISTRAR = {
       "es_violencia",
       "requiere_derivacion",
       "resumen",
+      "clave_norma",
       "alumno_iniciales",
     ],
   },
@@ -277,5 +314,6 @@ export interface Incidencia {
   es_violencia: boolean;
   requiere_derivacion: boolean;
   resumen: string;
+  clave_norma: string;
   alumno_iniciales: string;
 }
